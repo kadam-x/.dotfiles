@@ -1,0 +1,55 @@
+{
+    "reload_style_on_change": true,
+    "layer": "top",
+    "modules-left": ["sway/workspaces", "sway/window"],
+    "modules-center": [],
+    "modules-right": ["tray", "disk", "network", "pulseaudio", "battery", "clock"],
+    "sway/workspaces": {
+        "format": "{icon}"
+    },
+    "sway/window": {
+        "format": "> {title}"
+    },
+    "cpu": {
+        "format": "cpu{usage}%",
+        "interval": 2,
+        "tooltip": false
+    },
+    "memory": {
+        "format": "ram{percentage}%",
+        "interval": 2,
+        "tooltip": false
+    },
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "󰕾 {volume}%",
+        "format-muted": "󰝟 {volume}%",
+        "scroll-step": 1,
+        "tooltip": false
+    },
+    "battery": {
+        "interval": 30,
+        "format": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}%",
+        "format-full": "󰁹 full",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip": false
+    },
+    "network": {
+        "format-wifi": "{icon} {essid}",
+        "format-ethernet": "󰈀 eth",
+        "format-disconnected": "󰖪",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "tooltip": false
+    },
+    "clock": {
+        "format": "󱑒 {:%m/%d %H:%M}",
+        "interval": 1,
+        "tooltip": false
+    }
+}

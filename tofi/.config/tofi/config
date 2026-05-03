@@ -1,0 +1,16 @@
+font = Iosevka Term
+font-size = 14
+width = 100%
+height = 100%
+anchor = center
+terminal = foot
+background-color = #111111dd
+border-width = 0
+text-color = #ffffff
+padding-left = 42%
+padding-top = 50%
+prompt-color = #ffffff
+selection-color = #000000
+selection-background = #ffffff
+num-results = 15
+prompt-text = " > "
