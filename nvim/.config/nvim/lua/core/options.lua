@@ -1,7 +1,7 @@
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.showmode = false
+vim.opt.showmode = true
 vim.opt.laststatus = 3
 vim.opt.termguicolors = true
 vim.opt.nu = true
@@ -30,8 +30,9 @@ vim.o.foldlevel = 99
 vim.o.foldcolumn = "0"
 vim.opt.clipboard = "unnamedplus"
 vim.g.clipboard = {
-    name = "wl-clipboard",
-    copy  = { ["+"] = "wl-copy --trim-newline", ["*"] = "wl-copy --trim-newline" },
-    paste = { ["+"] = "wl-paste --no-newline",  ["*"] = "wl-paste --no-newline" },
-    cache_enabled = 1,
+	name = "wl-clipboard",
+	copy = { ["+"] = "wl-copy --trim-newline", ["*"] = "wl-copy --trim-newline" },
+	paste = { ["+"] = "wl-paste --no-newline", ["*"] = "wl-paste --no-newline" },
+	cache_enabled = 1,
 }
+vim.o.showcmd = false
