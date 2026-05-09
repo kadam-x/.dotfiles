@@ -1,7 +1,7 @@
 {
     "reload_style_on_change": true,
     "layer": "top",
-    "modules-left": ["sway/workspaces", "sway/window"],
+    "modules-left": ["sway/workspaces"],
     "modules-center": [],
     "modules-right": ["tray", "disk", "network", "pulseaudio", "battery", "clock"],
     "sway/workspaces": {
@@ -22,13 +22,13 @@
     },
     "disk": {
         "interval": 30,
-        "format": "󰋊 {percentage_used}%",
+        "format": "{percentage_used}%",
         "path": "/",
         "tooltip": false
     },
     "pulseaudio": {
-        "format": "󰕾 {volume}%",
-        "format-muted": "󰝟 {volume}%",
+        "format": "VOL{volume}%",
+        "format-muted": "VOL{volume}%",
         "scroll-step": 1,
         "tooltip": false
     },
@@ -42,13 +42,13 @@
     },
     "network": {
         "format-wifi": "{icon} {essid}",
-        "format-ethernet": "󰈀 eth",
+        "format-ethernet": "eth",
         "format-disconnected": "󰖪",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "tooltip": false
     },
     "clock": {
-        "format": "󱑒 {:%m/%d %H:%M}",
+        "format": "{:%m/%d %H:%M}",
         "interval": 1,
         "tooltip": false
     }
