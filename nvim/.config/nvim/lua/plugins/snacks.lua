@@ -99,7 +99,7 @@ return {
 		vim.keymap.set("n", "<leader>fc", function()
 			Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 		end, { desc = "Neovim Config Files" })
-		vim.keymap.set("n", "<leader>t", function()
+		vim.keymap.set("n", "<leader>ft", function()
 			Snacks.picker.grep({ search = "TODO|NOTE|FIX|FIXME", live = false })
 		end, { desc = "TODO list" })
 		vim.keymap.set("n", "X", function()

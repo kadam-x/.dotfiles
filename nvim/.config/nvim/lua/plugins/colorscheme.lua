@@ -1,7 +1,10 @@
 return {
-	"vague2k/vague.nvim",
-	priority = 1000,
-	config = function()
-		vim.cmd("colorscheme vague")
-	end,
+	{
+		"scottmckendry/cyberdream.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme cyberdream")
+		end,
+	},
 }
