@@ -37,14 +37,13 @@ extract = [
 
 [open]
 rules = [
-  { name = "*/",                           use = [ "edit", "open", "reveal" ] },
+  { mime = "inode/directory",              use = [ "edit", "open", "reveal" ] },
   { mime = "text/*",                       use = [ "edit", "reveal" ] },
   { mime = "image/*",                      use = [ "image" ] },
   { mime = "{audio,video}/*",              use = [ "play", "reveal" ] },
   { mime = "application/{json,ndjson}",    use = [ "edit", "reveal" ] },
   { mime = "*/javascript",                 use = [ "edit", "reveal" ] },
   { mime = "application/pdf",              use = [ "pdf", "reveal" ] },
-  # zip / tar / 7z / rar etc.
   { mime = "application/zip",              use = [ "extract", "reveal" ] },
   { mime = "application/x-tar",            use = [ "extract", "reveal" ] },
   { mime = "application/x-bzip2",          use = [ "extract", "reveal" ] },
@@ -52,7 +51,7 @@ rules = [
   { mime = "application/x-xz",             use = [ "extract", "reveal" ] },
   { mime = "application/x-7z-compressed",  use = [ "extract", "reveal" ] },
   { mime = "application/x-rar",            use = [ "extract", "reveal" ] },
-  { name = "*",                            use = [ "open", "reveal" ] },
+  { mime = "*/*", use = [ "open", "reveal" ] },
 ]
 
 [input]
