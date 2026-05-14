@@ -28,7 +28,7 @@ default_floating_border pixel 1
 gaps inner 0
 gaps outer 0
 
-client.focused #d1d1d1 #d1d1d1 #000000 #d1d1d1 #d1d1d1
+client.focused #54e6ee #54e6ee #000000 #54e6ee #54e6ee
 
 ### Keybindings
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
