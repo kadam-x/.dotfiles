@@ -1,15 +1,17 @@
 {
     "reload_style_on_change": true,
+    "margin-right": 700,
+    "margin-left": 700,
     "layer": "top",
     "modules-left": ["sway/workspaces"],
-    "modules-center": [],
-    "modules-right": ["tray", "network", "pulseaudio", "battery", "clock"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "network", "pulseaudio", "battery"],
 
     "sway/workspaces": {
         "format": "{icon}"
     },
     "clock": {
-        "format": "[ {:%a %b %d %H:%M:%S %Y} ]",
+        "format": "[ {:%a %b %d %H:%M:%S} ]",
         "interval": 1,
         "tooltip": false
     },

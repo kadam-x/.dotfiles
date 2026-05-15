@@ -76,6 +76,8 @@ return {
 				callback = function(args)
 					local o = { buffer = args.buf }
 
+					pcall(vim.keymap.del, "n", "K", { buffer = args.buf })
+
 					-- Standard binds
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", o, { desc = "Hover docs" }))
 					vim.keymap.set(

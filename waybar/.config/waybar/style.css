@@ -2,15 +2,14 @@
   border: none;
   border-radius: 0;
   min-height: 0;
-  font-family: "Terminess Nerd Font Mono";
-  font-weight: bold;
+  font-family: "DejaVuSansM Nerd Font Mono";
   font-size: 20px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0;
 }
 window#waybar {
-  background: #13090f;
+  background: rgba(1, 2, 22, 0.6);
 }
 #workspaces {
   background: transparent;
@@ -23,7 +22,7 @@ window#waybar {
   padding: 0 4px;
 }
 #workspaces button.focused {
-  background-color: #dd534d;
+  background-color: #8442ff;
   color: rgba(255, 255, 255, 1);
   padding: 0 4px;
 }

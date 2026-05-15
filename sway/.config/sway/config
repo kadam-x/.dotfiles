@@ -25,10 +25,10 @@ input "type:touchpad" {
 ### Appearance
 default_border pixel 1
 default_floating_border pixel 1
-gaps inner 0
-gaps outer 0
+gaps inner 3
+gaps outer 10
 
-client.focused #54e6ee #54e6ee #000000 #54e6ee #54e6ee
+client.focused #8442ff #8442ff #000000 #8442ff #8442ff
 
 ### Keybindings
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
