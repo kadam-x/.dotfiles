@@ -1,9 +1,9 @@
+vim.opt.termguicolors = true
 vim.opt.showtabline = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.showmode = true
 vim.opt.laststatus = 3
-vim.opt.termguicolors = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4

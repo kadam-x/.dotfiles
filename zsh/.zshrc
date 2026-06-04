@@ -64,3 +64,4 @@ _z_tab() {
 zle -N _z_tab
 bindkey '\t' _z_tab
 
+export PATH="$PATH:/home/kadamx/.local/bin"

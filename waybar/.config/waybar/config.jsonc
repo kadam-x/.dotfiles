@@ -1,7 +1,5 @@
 {
     "reload_style_on_change": true,
-    "margin-right": 700,
-    "margin-left": 700,
     "layer": "top",
     "modules-left": ["sway/workspaces"],
     "modules-center": ["clock"],
