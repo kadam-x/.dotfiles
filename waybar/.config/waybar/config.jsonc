@@ -1,15 +1,14 @@
 {
     "reload_style_on_change": true,
     "layer": "top",
-    "modules-left": ["sway/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["tray", "network", "pulseaudio", "battery"],
-
+    "modules-left": ["sway/workspaces", "tray"],
+    "modules-center": [],
+    "modules-right": ["network", "pulseaudio", "battery", "clock"],
     "sway/workspaces": {
         "format": "{icon}"
     },
     "clock": {
-        "format": "[ {:%a %b %d %H:%M:%S} ]",
+        "format": "{:%H:%M}",
         "interval": 1,
         "tooltip": false
     },

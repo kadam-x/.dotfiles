@@ -2,14 +2,14 @@
   border: none;
   border-radius: 0;
   min-height: 0;
-  font-family: "DejaVuSansM Nerd Font Mono";
+  font-family: "JetBrainMono Nerd Font";
   font-size: 20px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0;
 }
 window#waybar {
-  background: rgba(1, 2, 22, 0.6);
+  background: #121212;
 }
 #workspaces {
   background: transparent;
@@ -22,7 +22,7 @@ window#waybar {
   padding: 0 4px;
 }
 #workspaces button.focused {
-  background-color: rgba(197, 198, 202, 0.7);
+  background-color: rgba(171, 9, 44, 0.7);
   color: rgba(255, 255, 255, 1);
   padding: 0 4px;
 }
@@ -31,15 +31,12 @@ window#waybar {
   color: #000000;
   padding: 0 4px;
 }
-#window {
-  color: #bdbdbd;
-  padding-left: 6px;
-}
 #tray,
 #disk,
 #network,
 #pulseaudio,
 #battery,
+#window,
 #clock {
   background: transparent;
   color: #c5c6ca;

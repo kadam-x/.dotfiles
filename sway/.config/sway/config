@@ -12,31 +12,37 @@ input "type:keyboard" {
     xkb_layout us,hu
     xkb_options grp:win_space_toggle
 }
-
 input "type:pointer" {
     accel_profile flat
 }
-
 input "type:touchpad" {
     natural_scroll enabled
     tap enabled
 }
-
+input * {
+    repeat_rate 35
+    repeat_delay 200
+}
 ### Appearance
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 0
+default_floating_border pixel 0
 gaps inner 0
 gaps outer 0
-
-client.focused #c5c6ca #c5c6ca #000000 #c5c6ca #c5c6ca
+client.focused #ab092c #ab092c #000000 #ab092c #ab092c
+corner_radius 6
+shadows enable
+default_dim_inactive 0.15
 
 ### Keybindings
+
+# Audio
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym $mod+equal exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
+# Apps
 bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+f exec foot --app-id yazi -e yazi
 bindsym $mod+a exec $menu
@@ -46,18 +52,20 @@ bindsym $mod+w exec bash ~/.config/tofi/scripts/wallpaper-picker.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
 bindsym $mod+v exec foot --app-id wiremix -e pulsemixer
 bindsym $mod+m exec foot --app-id btop -e btop
-bindsym $mod+BackSpace reload
 
+# Window management
+bindsym $mod+BackSpace reload
 bindsym $mod+q kill
 bindsym $mod+f floating toggle
-
 bindsym $mod+j focus left
 bindsym $mod+k focus right
 bindsym $mod+h exec swaymsg resize shrink right 10ppt || swaymsg resize grow left 10ppt
 bindsym $mod+l exec swaymsg resize grow right 10ppt || swaymsg resize shrink left 10ppt
 bindsym $mod+Ctrl+j move left
 bindsym $mod+Ctrl+k move right
+floating_modifier $mod normal
 
+# Workspaces
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -80,14 +88,13 @@ bindsym $mod+Ctrl+8 move container to workspace number 8
 bindsym $mod+Ctrl+9 move container to workspace number 9
 bindsym $mod+Ctrl+0 move container to workspace number 10
 
-floating_modifier $mod normal
-
 ### Floating windows
 for_window [app_id="wiremix"] floating enable, resize set 800 600, move position center
 for_window [app_id="yazi"] floating enable, resize set 1200 1000, move position center
 for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 800 600, move position center
 for_window [app_id="swayimg"] floating enable
 for_window [title="^(Open|Save|Save As|Open File|Open Folder|Select File|Select Folder).*"] floating enable, resize set 1200 800, move position center
+
 ### Startup
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec /usr/lib/polkit-kde-authentication-agent-1

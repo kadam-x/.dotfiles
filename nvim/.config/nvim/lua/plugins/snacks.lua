@@ -100,7 +100,11 @@ return {
 			Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 		end, { desc = "Neovim Config Files" })
 		vim.keymap.set("n", "<leader>ft", function()
-			Snacks.picker.grep({ search = "TODO|NOTE|FIX|FIXME", live = false })
+			Snacks.picker.grep({
+				search = "TODO|NOTE",
+				live = false,
+				dirs = { vim.fn.expand("~/projects"), vim.fn.expand("~/work") },
+			})
 		end, { desc = "TODO list" })
 		vim.keymap.set("n", "X", function()
 			Snacks.bufdelete()

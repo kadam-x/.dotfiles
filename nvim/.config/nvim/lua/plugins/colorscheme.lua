@@ -1,10 +1,11 @@
 return {
 	{
-		"scottmckendry/cyberdream.nvim",
+		"kadam-x/onyx-colorscheme",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd("colorscheme cyberdream")
+			vim.opt.termguicolors = true
+			vim.cmd([[colorscheme onyx]])
 		end,
 	},
 }
