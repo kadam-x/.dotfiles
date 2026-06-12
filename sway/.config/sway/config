@@ -44,14 +44,13 @@ bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
 # Apps
 bindsym $mod+Return exec $terminal
-bindsym $mod+Shift+f exec foot --app-id yazi -e yazi
+bindsym $mod+e exec foot --app-id yazi -e yazi
 bindsym $mod+a exec $menu
 bindsym $mod+u exec hyprpicker -a
 bindsym $mod+p exec bash ~/.config/tofi/scripts/project-picker.sh
 bindsym $mod+w exec bash ~/.config/tofi/scripts/wallpaper-picker.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
 bindsym $mod+v exec foot --app-id wiremix -e pulsemixer
-bindsym $mod+m exec foot --app-id btop -e btop
 
 # Window management
 bindsym $mod+BackSpace reload

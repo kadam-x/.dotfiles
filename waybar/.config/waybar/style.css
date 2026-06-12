@@ -9,7 +9,7 @@
   margin: 0;
 }
 window#waybar {
-  background: #121212;
+  background: #261a1b;
 }
 #workspaces {
   background: transparent;
@@ -22,7 +22,7 @@ window#waybar {
   padding: 0 4px;
 }
 #workspaces button.focused {
-  background-color: rgba(171, 9, 44, 0.7);
+  background-color: rgba(243, 139, 63, 0.7);
   color: rgba(255, 255, 255, 1);
   padding: 0 4px;
 }
