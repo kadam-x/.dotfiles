@@ -7,7 +7,7 @@ return {
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				globalstatus = true,
-				theme = require("onyx.lualine"),
+				-- theme = require("onyx.lualine"),
 			},
 			sections = {
 				lualine_a = { "mode" },

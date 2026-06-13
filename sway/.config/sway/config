@@ -23,6 +23,7 @@ input * {
     repeat_rate 35
     repeat_delay 200
 }
+
 ### Appearance
 default_border pixel 0
 default_floating_border pixel 0
@@ -34,7 +35,6 @@ shadows enable
 default_dim_inactive 0.15
 
 ### Keybindings
-
 # Audio
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
@@ -50,6 +50,8 @@ bindsym $mod+u exec hyprpicker -a
 bindsym $mod+p exec bash ~/.config/tofi/scripts/project-picker.sh
 bindsym $mod+w exec bash ~/.config/tofi/scripts/wallpaper-picker.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
+
+# Scratchpads
 bindsym $mod+v exec foot --app-id wiremix -e pulsemixer
 
 # Window management
@@ -75,7 +77,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-
 bindsym $mod+Ctrl+1 move container to workspace number 1
 bindsym $mod+Ctrl+2 move container to workspace number 2
 bindsym $mod+Ctrl+3 move container to workspace number 3
@@ -103,3 +104,4 @@ exec wl-paste --type image --watch cliphist store
 exec qbittorrent --no-splash
 exec awww-daemon
 exec waybar
+exec swaybg -i ~/Pictures/wallpapers/chainsaw-man.jpg -m fill
