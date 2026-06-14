@@ -102,6 +102,6 @@ exec dunst
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec qbittorrent --no-splash
-exec awww-daemon
 exec waybar
-exec swaybg -i ~/Pictures/wallpapers/chainsaw-man.jpg -m fill
+exec mako
+exec awww-daemon 

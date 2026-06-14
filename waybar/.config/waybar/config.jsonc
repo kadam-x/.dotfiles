@@ -2,14 +2,22 @@
     "reload_style_on_change": true,
     "layer": "top",
     "modules-left": ["sway/workspaces", "tray"],
-    "modules-center": [],
-    "modules-right": ["network", "pulseaudio", "battery", "clock"],
+    "modules-center": ["clock"],
+    "modules-right": ["mpris", "pulseaudio", "battery"],
     "sway/workspaces": {
         "format": "{icon}"
     },
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "󰥔 {:%H:%M}",
         "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "{:%a %d %b}"
+    },
+    "mpris": {
+        "player": "spotify",
+        "format": "{title} - {artist}",
+        "format-paused": "{title} - {artist}",
+        "max-length": 40,
         "tooltip": false
     },
     "network": {
@@ -20,10 +28,10 @@
         "tooltip": false
     },
     "pulseaudio": {
-    "format": "VOL {volume}%",
-    "format-muted": "VOL muted",
-    "scroll-step": 1,
-    "tooltip": false
+        "format": "󰋋 {volume}%",
+        "format-muted": "󰟎 muted",
+        "scroll-step": 1,
+        "tooltip": false
     },
     "battery": {
         "interval": 30,
@@ -31,5 +39,5 @@
         "format-charging": "CHR {capacity}%",
         "format-full": "BAT full",
         "tooltip": false
-    },
+    }
 }

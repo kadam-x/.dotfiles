@@ -3,64 +3,127 @@
   border-radius: 0;
   min-height: 0;
   font-family: "JetBrainMono Nerd Font";
-  font-size: 22px;
-  padding-bottom: 0px;
-  padding-top: 0px;
+  font-size: 18px;
+  padding-bottom: 1px;
+  padding-top: 1px;
   margin: 0;
 }
+
 window#waybar {
-  background: #000000;
+  background: #10110e;
 }
+
 #workspaces {
   background: transparent;
   margin: 0 10px;
 }
+
 #workspaces button {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.62);
   background-color: transparent;
   padding: 0 10px;
 }
+
 #workspaces button.focused {
   background-color: transparent;
-  color: rgba(255, 255, 255, 1);
+  color: #ffffff;
   padding: 0 10px;
 }
+
+#workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #e7edf5;
+}
+
 #workspaces button.urgent {
   background-color: #ff5454;
   color: #000000;
   padding: 0 10px;
 }
-#tray {
-  background: transparent;
-  color: #c5c6ca;
-  padding: 0 6px;
-  font-size: 24px;
-}
 
+#tray,
 #disk,
 #network,
 #pulseaudio,
 #battery,
-#window,
 #clock {
   background: transparent;
   color: #c5c6ca;
-  padding: 0 6px;
+  padding: 4px 7px;
+  margin: 0 1px;
 }
+
+#disk:hover,
+#network:hover,
+#pulseaudio:hover,
+#battery:hover,
+#clock:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+#window {
+  background: transparent;
+  color: rgba(197, 198, 202, 0.62);
+  padding: 4px 7px;
+  margin: 0 1px;
+}
+
 #battery.warning {
-  color: #000000;
+  color: #fbbf24;
 }
+
 #battery.critical {
-  color: #ff5454;
+  color: #f87171;
+  animation: critical-blink 1.2s ease-in-out infinite alternate;
 }
+
 #battery.charging {
-  color: #8cc85f;
+  color: #86efac;
 }
+
 #network.disconnected {
   color: #ff5454;
 }
+
+@keyframes critical-blink {
+  0% {
+    background-color: transparent;
+    color: #f87171;
+  }
+  100% {
+    background-color: rgba(248, 113, 113, 0.16);
+    color: #ffe4e6;
+  }
+}
+
 tooltip {
-  background-color: #121212;
-  border: 1px solid #373c40;
-  color: #000000;
+  background-color: rgba(20, 20, 20, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e7edf5;
+}
+
+tooltip label {
+  color: #e7edf5;
+  padding: 2px 4px;
+}
+
+#pulseaudio-slider slider {
+  min-width: 0;
+  min-height: 0;
+  opacity: 0;
+  background-image: none;
+  border: none;
+}
+
+#pulseaudio-slider trough {
+  min-width: 64px;
+  min-height: 4px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+}
+
+#pulseaudio-slider highlight {
+  min-height: 4px;
+  background-color: #d1d5db;
+  border-radius: 0;
 }
