@@ -69,7 +69,7 @@ return {
 		vim.keymap.set({ "n", "t" }, "<A-h>", function()
 			Snacks.terminal.toggle(nil, { win = { position = "bottom" } })
 		end, { desc = "Toggle terminal" })
-		vim.keymap.set("n", "<leader><leader>", function()
+		vim.keymap.set("n", "<tab>", function()
 			Snacks.picker.buffers()
 		end, { desc = "Find Buffers" })
 		vim.keymap.set("n", "<leader>ff", function()
