@@ -26,7 +26,6 @@ return {
 				"astro",
 				"eslint",
 				"pyrefly",
-				"gopls",
 			},
 		},
 		config = function(_, opts)
