@@ -15,8 +15,8 @@
     },
     "mpris": {
         "player": "spotify",
-        "format": "{title} - {artist}",
-        "format-paused": "{title} - {artist}",
+        "format": "󰏤 ({title} - {artist})",
+        "format-paused": "󰐊 ({title} - {artist})",
         "max-length": 40,
         "tooltip": false
     },
