@@ -18,7 +18,7 @@ alias ld="eza -lhD --icons=auto"
 alias ll="eza -lha --icons=auto --sort=name --group-directories-first"
 alias ls="eza -1 --icons=auto"
 alias lt="eza --icons=auto --tree"
-alias p='~/.local/bin/scripts/sessionizer.sh'
+alias sess='~/.local/bin/scripts/sessionizer.sh'
 
 # Autocompletion - must be before plugins
 autoload -Uz compinit
