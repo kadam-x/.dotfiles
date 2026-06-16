@@ -1,8 +1,7 @@
 ### Variables
 set $mod Mod4
 set $terminal foot
-set $menu tofi-drun | xargs swaymsg exec --
-
+set $menu exec bemenu-run -i --fn 'monospace 18'
 ### Output
 output DP-1 resolution 2560x1440@240Hz position 0,0
 output eDP-1 resolution 1920x1080@60Hz position 0,0
@@ -47,8 +46,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+e exec foot --app-id yazi -e yazi
 bindsym $mod+a exec $menu
 bindsym $mod+u exec hyprpicker -a
-bindsym $mod+p exec bash ~/.config/tofi/scripts/project-picker.sh
-bindsym $mod+w exec bash ~/.config/tofi/scripts/wallpaper-picker.sh
+bindsym $mod+p exec bash ~/.local/bin/scripts/project-picker.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
 
 # Scratchpads
@@ -104,4 +102,4 @@ exec wl-paste --type image --watch cliphist store
 exec qbittorrent --no-splash
 exec waybar
 exec mako
-exec awww-daemon 
+exec_always swaybg -i ~/Pictures/wallpapers/edgerunner-david-lucy.jpg -m fill
