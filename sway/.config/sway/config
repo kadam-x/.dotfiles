@@ -46,7 +46,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+e exec foot --app-id yazi -e yazi
 bindsym $mod+a exec $menu
 bindsym $mod+u exec hyprpicker -a
-bindsym $mod+p exec bash ~/.local/bin/scripts/project-picker.sh
+bindsym $mod+p exec bash ~/.local/bin/scripts/sessionizer.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
 
 # Scratchpads
