@@ -91,7 +91,6 @@ for_window [app_id="wiremix"] floating enable, resize set 800 600, move position
 for_window [app_id="yazi"] floating enable, resize set 1200 1000, move position center
 for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 800 600, move position center
 for_window [app_id="swayimg"] floating enable
-for_window [title="^(Open|Save|Save As|Open File|Open Folder|Select File|Select Folder).*"] floating enable, resize set 1200 800, move position center
 
 ### Startup
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
