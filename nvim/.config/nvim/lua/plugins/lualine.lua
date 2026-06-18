@@ -7,9 +7,17 @@ return {
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				globalstatus = true,
+				theme = {
+					normal = { a = { bg = "none" }, c = { bg = "none" } },
+					insert = { a = { bg = "none" }, c = { bg = "none" } },
+					visual = { a = { bg = "none" }, c = { bg = "none" } },
+					replace = { a = { bg = "none" }, c = { bg = "none" } },
+					command = { a = { bg = "none" }, c = { bg = "none" } },
+					inactive = { a = { bg = "none" }, c = { bg = "none" } },
+				},
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = {},
 				lualine_b = {
 					{ "filename", symbols = { modified = " +", readonly = " -", unnamed = "" } },
 					{ "branch", icon = "" },

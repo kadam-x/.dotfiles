@@ -30,11 +30,9 @@ play = [
 pdf = [
   { run = 'sioyek "$@"', orphan = true, for = "unix" },
 ]
-# Extract zip/archive into a same-named directory, then enter it
 extract = [
-  { run = 'unar -o "$(dirname "$1")" "$1"', block = true, for = "unix" },
+  { run = 'unar -o "$(dirname "$1")" -q "$1"', block = true, for = "unix" },
 ]
-
 [open]
 rules = [
   { mime = "inode/directory",              use = [ "edit", "open", "reveal" ] },
