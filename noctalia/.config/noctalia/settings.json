@@ -50,7 +50,7 @@
         "density": "comfortable",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
-        "fontScale": 1.3,
+        "fontScale": 1.4,
         "frameRadius": 12,
         "frameThickness": 8,
         "hideOnOverview": false,
@@ -78,6 +78,15 @@
         "widgetSpacing": 7,
         "widgets": {
             "center": [
+                {
+                    "clockColor": "none",
+                    "customFont": "",
+                    "formatHorizontal": "HH:mm",
+                    "formatVertical": "HH mm - dd MM",
+                    "id": "Clock",
+                    "tooltipFormat": "ddd, MMM dd",
+                    "useCustomFont": false
+                }
             ],
             "left": [
                 {
@@ -167,15 +176,6 @@
                     "iconColor": "none",
                     "id": "Network",
                     "textColor": "none"
-                },
-                {
-                    "clockColor": "none",
-                    "customFont": "",
-                    "formatHorizontal": "HH:mm:ss ddd - MM/dd/yyyy",
-                    "formatVertical": "HH mm - dd MM",
-                    "id": "Clock",
-                    "tooltipFormat": "HH:mm ddd, MMM dd",
-                    "useCustomFont": false
                 },
                 {
                     "hideWhenZero": false,
