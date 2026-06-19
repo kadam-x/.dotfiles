@@ -1,11 +1,9 @@
 ### Variables
 set $mod Mod4
 set $terminal foot
-set $menu exec bemenu-run -i --fn 'monospace 18'
 ### Output
 output DP-1 resolution 2560x1440@240Hz position 0,0
 output eDP-1 resolution 1920x1080@60Hz position 0,0
-
 ### Input
 input "type:keyboard" {
     xkb_layout us,hu
@@ -22,17 +20,12 @@ input * {
     repeat_rate 35
     repeat_delay 200
 }
-
 ### Appearance
 default_border pixel 0
 default_floating_border pixel 0
 gaps inner 0
 gaps outer 0
 client.focused #ab092c #ab092c #000000 #ab092c #ab092c
-corner_radius 6
-shadows enable
-default_dim_inactive 0.15
-
 ### Keybindings
 # Audio
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
@@ -40,18 +33,15 @@ bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym $mod+equal exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-
 # Apps
 bindsym $mod+Return exec $terminal
 bindsym $mod+e exec foot --app-id yazi -e yazi
-bindsym $mod+a exec $menu
+bindsym $mod+a exec qs -c noctalia-shell ipc call launcher toggle
 bindsym $mod+u exec hyprpicker -a
 bindsym $mod+p exec bash ~/.local/bin/scripts/sessionizer.sh
 bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png | wl-copy'
-
 # Scratchpads
 bindsym $mod+v exec foot --app-id wiremix -e pulsemixer
-
 # Window management
 bindsym $mod+BackSpace reload
 bindsym $mod+q kill
@@ -63,7 +53,6 @@ bindsym $mod+l exec swaymsg resize grow right 10ppt || swaymsg resize shrink lef
 bindsym $mod+Ctrl+j move left
 bindsym $mod+Ctrl+k move right
 floating_modifier $mod normal
-
 # Workspaces
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -85,20 +74,15 @@ bindsym $mod+Ctrl+7 move container to workspace number 7
 bindsym $mod+Ctrl+8 move container to workspace number 8
 bindsym $mod+Ctrl+9 move container to workspace number 9
 bindsym $mod+Ctrl+0 move container to workspace number 10
-
 ### Floating windows
 for_window [app_id="wiremix"] floating enable, resize set 800 600, move position center
 for_window [app_id="yazi"] floating enable, resize set 1200 1000, move position center
 for_window [app_id="org.qbittorrent.qBittorrent"] floating enable, resize set 800 600, move position center
 for_window [app_id="swayimg"] floating enable
-
 ### Startup
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec /usr/lib/polkit-kde-authentication-agent-1
-exec dunst
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec qbittorrent --no-splash
-exec waybar
-exec mako
-exec_always swaybg -i ~/Pictures/wallpapers/edgerunner-david-lucy.jpg -m fill
+exec QML_DISABLE_DISTANCEFIELD=1 qs -c noctalia-shell
