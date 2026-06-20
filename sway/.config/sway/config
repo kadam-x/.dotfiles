@@ -21,11 +21,11 @@ input * {
     repeat_delay 200
 }
 ### Appearance
-default_border pixel 0
-default_floating_border pixel 0
-gaps inner 0
-gaps outer 0
-client.focused #ab092c #ab092c #000000 #ab092c #ab092c
+default_border pixel 2
+default_floating_border pixel 2
+gaps inner 1
+gaps outer 1
+client.focused #ffffff #ffffff #000000 #ffffff #ffffff
 ### Keybindings
 # Audio
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
