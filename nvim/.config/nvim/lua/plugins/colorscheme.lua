@@ -1,17 +1,13 @@
 return {
-	"oskarnurm/koda.nvim",
+	"vague-theme/vague.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		require("koda").setup({
-			on_highlights = function(hl, c)
-				hl.Search = { bg = "#4d4d4d", fg = c.bg }
-				hl.IncSearch = { bg = "#4d4d4d", fg = c.bg }
-				hl.CurSearch = { bg = "#4d4d4d", fg = c.bg }
-				hl.Visual = { bg = "#4d4d4d" }
-				hl.MatchParen = { fg = "#4d4d4d", bold = true }
-			end,
+		require("vague").setup({
+			transparent = false,
+			bold = true,
+			italic = true,
 		})
-		vim.cmd("colorscheme koda")
+		vim.cmd("colorscheme vague")
 	end,
 }
