@@ -50,7 +50,7 @@
         "density": "comfortable",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
-        "fontScale": 1.3,
+        "fontScale": 1.55,
         "frameRadius": 12,
         "frameThickness": 8,
         "hideOnOverview": false,
@@ -535,8 +535,8 @@
                 "action": "lock",
                 "command": "",
                 "countdownEnabled": true,
-                "enabled": false,
-                "keybind": ""
+                "enabled": true,
+                "keybind": "4"
             },
             {
                 "action": "suspend",
@@ -598,15 +598,15 @@
         "activeTemplates": [
             {
                 "enabled": true,
+                "id": "qt"
+            },
+            {
+                "enabled": true,
                 "id": "telegram"
             },
             {
                 "enabled": true,
                 "id": "gtk"
-            },
-            {
-                "enabled": true,
-                "id": "qt"
             }
         ],
         "enableUserTheming": false
