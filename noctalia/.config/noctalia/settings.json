@@ -50,7 +50,7 @@
         "density": "comfortable",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
-        "fontScale": 1.55,
+        "fontScale": 1.5,
         "frameRadius": 12,
         "frameThickness": 8,
         "hideOnOverview": false,
@@ -165,7 +165,7 @@
                     "showPowerProfiles": false
                 },
                 {
-                    "displayMode": "alwaysShow",
+                    "displayMode": "onhover",
                     "iconColor": "none",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol",
