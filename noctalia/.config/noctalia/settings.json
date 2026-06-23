@@ -46,7 +46,7 @@
         "barType": "simple",
         "capsuleColorKey": "none",
         "capsuleOpacity": 0,
-        "contentPadding": 0,
+        "contentPadding": 10,
         "density": "comfortable",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
@@ -75,7 +75,7 @@
         "showOnWorkspaceSwitch": true,
         "showOutline": false,
         "useSeparateOpacity": true,
-        "widgetSpacing": 7,
+        "widgetSpacing": 8,
         "widgets": {
             "center": [
                 {

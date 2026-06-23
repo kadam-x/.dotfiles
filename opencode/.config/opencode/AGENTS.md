@@ -1,27 +1,41 @@
-# Frontend
+# Hybrid Agent Instructions: Architectural & Behavioral Constraints
 
-## Colors and Lights
+## 1. Execution Philosophy & Scope Control
 
-- Do not use random glowing lights behind everything
-- Do not use the same boring purple color gradients
-- Use nice, calm colors like soft gray, green, or off-white
-- Make sure box borders look smooth, clean, and matching
+- **Surgical Scope:** Touch only what is required. Every changed line must trace directly to the request.
+  - Do not "improve" adjacent code, comments, or formatting.
+  - Do not refactor unbroken components. Match existing style exactly.
+  - If unrelated dead code is identified, surface it textually; do not delete it.
+- **Simplicity First:** Implement the minimum code that solves the problem.
+  - No speculative features, unrequested abstractions, or predictive flexibility/configurability.
+  - No error handling for impossible scenarios.
+  - If a 200-line implementation can be compressed to 50 lines, rewrite it.
+- **Goal-Driven Verification:** Transform tasks into verifiable goals.
+  - Define concrete success criteria (e.g., "_Write test reproducing bug → implement fix → verify pass_").
+  - For multi-step tasks, state an explicit plan with check-steps before execution.
+- **Explicit Assumption Modeling:** Stop execution if ambiguity is encountered. State assumptions explicitly and present multiple interpretations rather than choosing silently.
 
-## Words and Fonts
+## 2. Frontend Constraints
 
-- Do not use the standard Inter font because it is too common
-- Choose a unique, clean font so the website looks different
-- Keep big letters spaced out nicely so they look neat
-- Never let words on a button bend down into two messy lines
+### Visual Design & Color Theory
 
-## Pictures and Icons
+- **Palette Boundaries:** Inhibit generic purple gradients. Inhibit random background glowing lights. Use calm, low-saturation tones: soft gray, green, or off-white. Ensure box borders are smooth, clean, and structurally uniform.
+- **Typography:** Inhibit the standard `Inter` font family. Select a unique, clean alternative font. Apply expanded letter-spacing to uppercase headers. Strict constraint: Button text must remain on a single horizontal line; prevent text-wrapping or multi-line bending.
+- **Asset Selection:** Inhibit low-fidelity computer illustrations/clipart. Utilize high-quality, authentic photography. Deploy unique, non-standard icon sets. Utilize subtle, clean video or motion backgrounds for high-impact zones.
+- **Layout Mechanics:** Maintain absolute vertical symmetry (top padding must equal bottom padding within containers). Avoid dense layout crowding; maximize negative space. Implement smooth, low-latency entrance transitions (`slide-in` / `fade-in`) on initial page load.
 
-- Use real, pretty photos instead of fake computer drawings
-- Pick cool, special icons instead of the basic ones everyone has seen
-- Put neat videos or moving pictures in the background to make it fun
+## 3. Backend Constraints (Python)
 
-## Spacing and Flow
+### Code Architecture & Import Order
 
-- Make sure the empty space at the top matches the empty space at the bottom
-- Give everything enough room to breathe so it does not feel crowded
-- Make items slide into the screen softly when the page loads
+- **Import Hierarchy:** Group and order imports strictly from top to bottom:
+  1. Third-party dependencies
+  2. Built-in standard library modules
+  3. Local/internal project modules
+- **Structural Granularity (Single Responsibility):** Enforce strict file-to-class mapping. One file contains exactly one class execution, fulfilling a single job that can be summarized in 2–3 words.
+- **Function Length Boundary:** Functions must fit entirely within a standard vertical screen view. If a function exceeds one screen in length, it must be refactored into a minimum of two distinct functions.
+
+## 4. Cleanup Tracing
+
+- **Orphan Management:** Remove imports, variables, and functions that become unused _specifically_ due to your changes.
+- Do not remove pre-existing dead code unless explicitly directed by the request.

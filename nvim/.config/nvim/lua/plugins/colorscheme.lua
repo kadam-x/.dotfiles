@@ -1,13 +1,11 @@
 return {
-	"vague-theme/vague.nvim",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		require("vague").setup({
-			transparent = false,
-			bold = true,
-			italic = true,
-		})
-		vim.cmd("colorscheme vague")
-	end,
+	{
+		"kadam-x/onyx-colorscheme",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.opt.termguicolors = true
+			vim.cmd([[colorscheme onyx]])
+		end,
+	},
 }
