@@ -118,8 +118,8 @@ hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "right" }))
 
 -- Hyprland's relative resize on the active window covers this directly.
-hl.bind(mainMod .. " + H", hl.dsp.window.resize({ x = -150, y = 0, relative = true }))
-hl.bind(mainMod .. " + L", hl.dsp.window.resize({ x = 150, y = 0, relative = true }))
+hl.bind(mainMod .. " + H", hl.dsp.window.resize({ x = -350, y = 0, relative = true }))
+hl.bind(mainMod .. " + L", hl.dsp.window.resize({ x = 350, y = 0, relative = true }))
 
 hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.move({ direction = "left" }))
 hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.move({ direction = "right" }))
@@ -184,6 +184,10 @@ hl.window_rule({
 	float = true,
 })
 
+hl.window_rule({
+	match = { class = "obsidian" },
+	workspace = "current",
+})
 -------------------
 ---- AUTOSTART ----
 -------------------

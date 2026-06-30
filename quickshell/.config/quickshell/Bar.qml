@@ -208,10 +208,28 @@ PanelWindow {
                             anchors.fill: parent
                             acceptedButtons: Qt.LeftButton | Qt.RightButton
                             onClicked: mouse => {
-                                if (mouse.button === Qt.LeftButton)
-                                    trayIcon.modelData.activate();
-                                else if (mouse.button === Qt.RightButton && trayIcon.modelData.hasMenu)
-                                    trayIcon.modelData.display(trayIcon, 0, trayIcon.height);
+                                // display(parentWindow, relativeX, relativeY)
+                                // needs an actual window object, not this
+                                // icon Item - and coordinates relative to
+                                // that window, not to the icon. mapToItem
+                                // (null, ...) converts the icon's local
+                                // point into root's content-item space.
+                                const pos = trayIcon.mapToItem(null, 0, trayIcon.height);
+
+                                if (mouse.button === Qt.LeftButton) {
+                                    // Some tray items (NetworkManager applet,
+                                    // some Bluetooth tools) never implement
+                                    // DBus Activate - only a context menu.
+                                    // onlyMenu flags that, so left-click
+                                    // falls back to the menu instead of a
+                                    // silent no-op.
+                                    if (trayIcon.modelData.onlyMenu && trayIcon.modelData.hasMenu)
+                                        trayIcon.modelData.display(root, pos.x, pos.y);
+                                    else
+                                        trayIcon.modelData.activate();
+                                } else if (mouse.button === Qt.RightButton && trayIcon.modelData.hasMenu) {
+                                    trayIcon.modelData.display(root, pos.x, pos.y);
+                                }
                             }
                         }
                     }
@@ -548,7 +566,10 @@ PanelWindow {
         implicitHeight: 24
         radius: 0
 
-        property bool hovered: false
+        // Click toggles the popup open/closed - was hover-based, but that
+        // made it pop open/shut constantly while just moving the mouse
+        // across the bar.
+        property bool open: false
 
         Text {
             id: clockText
@@ -572,17 +593,8 @@ PanelWindow {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            onEntered: clockChip.hovered = true
-            onExited: closeTimer.restart()
+            onClicked: clockChip.open = !clockChip.open
         }
-    }
-
-    // Small grace period so moving the cursor down across the gap from the
-    // clock chip into the popup doesn't slam it shut before you get there.
-    Timer {
-        id: closeTimer
-        interval: 150
-        onTriggered: clockChip.hovered = false
     }
 
     // A regular bar PanelWindow is only as tall as its own surface
@@ -596,15 +608,8 @@ PanelWindow {
         anchor.rect.y: root.height
         implicitWidth: calColumn.implicitWidth + 16
         implicitHeight: calColumn.implicitHeight + 16
-        visible: clockChip.hovered
+        visible: clockChip.open
         color: "#1a2230"
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: clockChip.hovered = true
-            onExited: closeTimer.restart()
-        }
 
         Rectangle {
             anchors.fill: parent

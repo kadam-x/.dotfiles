@@ -19,7 +19,7 @@ alias ll="eza -lha --icons=auto --sort=name --group-directories-first"
 alias ls="eza -1 --icons=auto"
 alias lt="eza --icons=auto --tree"
 alias sess='~/.local/bin/scripts/sessionizer.sh'
-
+alias cat='bat'
 # Autocompletion - must be before plugins
 autoload -Uz compinit
 compinit
