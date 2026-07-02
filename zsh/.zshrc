@@ -70,3 +70,7 @@ zle -N _z_tab
 bindkey '\t' _z_tab
 
 export PATH="$PATH:/home/kadamx/.local/bin"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+export PATH=$PATH:$(go env GOPATH)/bin

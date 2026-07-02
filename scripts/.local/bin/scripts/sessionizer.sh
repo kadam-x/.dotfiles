@@ -7,9 +7,8 @@ function create_session() {
   tmux new-session -d -s "$session_name" -c "$project_path"
   tmux rename-window -t "$session_name:1" "editor"
   tmux send-keys -t "$session_name:editor" "nvim" Enter
-  tmux split-window -h -t "$session_name:editor" -c "$project_path" -p 25
-  tmux split-window -v -t "$session_name:editor.2" -c "$project_path"
-  tmux select-pane -t "$session_name:editor.1"
+  tmux new-window -t "$session_name" -n "opencode" -c "$project_path"
+  tmux send-keys -t "$session_name:opencode" "opencode" Enter
   tmux new-window -t "$session_name" -n "lazygit" -c "$project_path"
   tmux send-keys -t "$session_name:lazygit" "lazygit" Enter
   tmux select-window -t "$session_name:editor"

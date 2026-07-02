@@ -13,9 +13,19 @@
 - **Goal-Driven Verification:** Transform tasks into verifiable goals.
   - Define concrete success criteria (e.g., "_Write test reproducing bug → implement fix → verify pass_").
   - For multi-step tasks, state an explicit plan with check-steps before execution.
+  - Verification commands: `pytest` for tests, `ruff check` for lint. Run these before declaring a task complete.
 - **Explicit Assumption Modeling:** Stop execution if ambiguity is encountered. State assumptions explicitly and present multiple interpretations rather than choosing silently.
+- **Blast-Radius Checkpoint:** If a change touches more than 5 files, stop and confirm scope with the user before proceeding.
 
-## 2. Frontend Constraints
+## 2. Git & Commit Hygiene
+
+- Never create, checkout, or switch branches. Branch management is handled by the user.
+- Never push to any remote. Pushing is handled by the user.
+- Commit messages: imperative mood (e.g., "Add", "Fix", "Remove"), one logical change per commit.
+- No co-author trailers, no AI-attribution footers in commit messages.
+- If a task spans multiple unrelated changes, split into multiple commits rather than one large commit.
+
+## 3. Frontend Constraints
 
 ### Visual Design & Color Theory
 
@@ -24,7 +34,7 @@
 - **Asset Selection:** Inhibit low-fidelity computer illustrations/clipart. Utilize high-quality, authentic photography. Deploy unique, non-standard icon sets. Utilize subtle, clean video or motion backgrounds for high-impact zones.
 - **Layout Mechanics:** Maintain absolute vertical symmetry (top padding must equal bottom padding within containers). Avoid dense layout crowding; maximize negative space. Implement smooth, low-latency entrance transitions (`slide-in` / `fade-in`) on initial page load.
 
-## 3. Backend Constraints (Python)
+## 4. Backend Constraints (Python)
 
 ### Code Architecture & Import Order
 
@@ -32,10 +42,10 @@
   1. Third-party dependencies
   2. Built-in standard library modules
   3. Local/internal project modules
-- **Structural Granularity (Single Responsibility):** Enforce strict file-to-class mapping. One file contains exactly one class execution, fulfilling a single job that can be summarized in 2–3 words.
+- **Structural Granularity (Single Responsibility):** For files/classes above ~100 lines or handling more than one concern, enforce strict file-to-class mapping (one file, one class, summarizable in 2–3 words). Do not apply this rule to trivial/small features — do not split tiny changes into extra files purely for SRP compliance; this conflicts with Simplicity First.
 - **Function Length Boundary:** Functions must fit entirely within a standard vertical screen view. If a function exceeds one screen in length, it must be refactored into a minimum of two distinct functions.
 
-## 4. Cleanup Tracing
+## 5. Cleanup Tracing
 
 - **Orphan Management:** Remove imports, variables, and functions that become unused _specifically_ due to your changes.
 - Do not remove pre-existing dead code unless explicitly directed by the request.
