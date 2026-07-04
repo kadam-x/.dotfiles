@@ -25,19 +25,25 @@ PanelWindow {
     readonly property int barFontSize: 20
     readonly property bool barFontBold: false
 
-    // Bind the default sink so its audio properties (volume/muted) are
-    // actually populated - PwNode's audio data stays invalid until tracked.
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
     }
 
-    // ---------------- Network state, via nmcli ----------------
-    // Quickshell's native networking module is too new/sparsely documented
-    // to use reliably right now, so this polls nmcli instead - a stable,
-    // well documented CLI that's already a dependency of NetworkManager.
-    property string netType: "none" // "wifi" | "ethernet" | "none"
+    property string netType: "none"
     property string netSsid: ""
-    property int netStrength: 0 // 0-100, wifi only
+    property int netStrength: 0
+
+    property real cpuPct: 0
+    property real ramPct: 0
+    property real ramUsedGB: 0
+    property real ramTotalGB: 0
+    property real diskUsedGB: 0
+    property real diskFreeGB: 0
+    property real diskTotalGB: 0
+    property real diskPct: diskTotalGB > 0 ? Math.round((diskUsedGB / diskTotalGB) * 100) : 0
+
+    property real _prevIdle: 0
+    property real _prevTotal: 0
 
     Timer {
         interval: 5000
@@ -47,9 +53,20 @@ PanelWindow {
         onTriggered: netStatusProc.running = true
     }
 
+    Timer {
+        interval: 3000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            cpuProc.running = true
+            ramProc.running = true
+            diskProc.running = true
+        }
+    }
+
     Process {
         id: netStatusProc
-        // device TYPE STATE CONNECTION, colon separated, terse
         command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION", "device"]
         stdout: StdioCollector {
             onStreamFinished: {
@@ -84,12 +101,55 @@ PanelWindow {
         }
     }
 
+    Process {
+        id: cpuProc
+        command: ["sh", "-c", "head -n1 /proc/stat"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const f = text.trim().split(/\s+/).slice(1).map(Number);
+                const idle = f[3] + f[4];
+                const total = f.reduce((a, b) => a + b, 0);
+                const dIdle = idle - root._prevIdle;
+                const dTotal = total - root._prevTotal;
+                if (root._prevTotal > 0 && dTotal > 0)
+                    root.cpuPct = Math.round((1 - dIdle / dTotal) * 100);
+                root._prevIdle = idle;
+                root._prevTotal = total;
+            }
+        }
+    }
+
+    Process {
+        id: ramProc
+        command: ["sh", "-c", "free -b | awk '/^Mem:/ {print $2, $3}'"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const p = text.trim().split(/\s+/).map(Number);
+                root.ramTotalGB = p[0] / 1e9;
+                root.ramUsedGB = p[1] / 1e9;
+                root.ramPct = Math.round((p[1] / p[0]) * 100);
+            }
+        }
+    }
+
+    Process {
+        id: diskProc
+        command: ["sh", "-c", "df -B1 / | awk 'NR==2 {print $2, $3, $4}'"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const p = text.trim().split(/\s+/).map(Number);
+                root.diskTotalGB = p[0] / 1e9;
+                root.diskUsedGB = p[1] / 1e9;
+                root.diskFreeGB = p[2] / 1e9;
+            }
+        }
+    }
+
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 0
         anchors.rightMargin: 0
 
-        // ---------------- LEFT: workspaces ----------------
         RowLayout {
             Layout.alignment: Qt.AlignLeft
             spacing: 12
@@ -98,7 +158,6 @@ PanelWindow {
                 spacing: 6
 
                 Repeater {
-                    // Hyprland.workspaces is an ObjectModel<HyprlandWorkspace>
                     model: Hyprland.workspaces
 
                     delegate: Rectangle {
@@ -121,9 +180,6 @@ PanelWindow {
                         width: wsRow.implicitWidth + 12
                         height: 30
                         radius: 0
-                        // Active = white fill, urgent = red fill (matching
-                        // your original waybar look), hover = faint
-                        // highlight, otherwise transparent.
                         color: wsChip.modelData.hasUrgent ? "#ff5454"
                              : wsChip.isFocused ? Config.colors.fg
                              : (hover.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
@@ -144,8 +200,6 @@ PanelWindow {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: wsChip.modelData.name
-                                // Black text when the chip has a light/colored
-                                // fill (active or urgent), light text otherwise.
                                 color: (wsChip.modelData.hasUrgent || wsChip.isFocused) ? "#000000" : Config.colors.fg
                                 font.family: root.barFontFamily
                                 font.pixelSize: root.barFontSize
@@ -160,7 +214,7 @@ PanelWindow {
                                     model: wsChip.wsToplevels
 
                                     delegate: IconImage {
-                                        required property var modelData // a HyprlandToplevel
+                                        required property var modelData
 
                                         readonly property var desktopEntry:
                                             modelData.wayland ? DesktopEntries.heuristicLookup(modelData.wayland.appId) : null
@@ -177,18 +231,12 @@ PanelWindow {
             }
         }
 
-        // Single spacer pushes the right-hand group to the far edge - the
-        // clock used to live here too, but is now a separate item anchored
-        // to root's true center (see bottom of file) instead of being
-        // centered between unequal-width left/right groups.
         Item { Layout.fillWidth: true }
 
-        // ---------------- RIGHT: tray, network, audio, battery, notif. history ----------------
         RowLayout {
             Layout.alignment: Qt.AlignRight
             spacing: 2
 
-            // ---- Tray (now leftmost item of the right-hand group) ----
             Row {
                 spacing: 6
                 Layout.rightMargin: 8
@@ -198,7 +246,7 @@ PanelWindow {
 
                     delegate: IconImage {
                         id: trayIcon
-                        required property var modelData // a SystemTrayItem
+                        required property var modelData
 
                         implicitSize: 18
                         source: modelData.icon
@@ -208,21 +256,9 @@ PanelWindow {
                             anchors.fill: parent
                             acceptedButtons: Qt.LeftButton | Qt.RightButton
                             onClicked: mouse => {
-                                // display(parentWindow, relativeX, relativeY)
-                                // needs an actual window object, not this
-                                // icon Item - and coordinates relative to
-                                // that window, not to the icon. mapToItem
-                                // (null, ...) converts the icon's local
-                                // point into root's content-item space.
                                 const pos = trayIcon.mapToItem(null, 0, trayIcon.height);
 
                                 if (mouse.button === Qt.LeftButton) {
-                                    // Some tray items (NetworkManager applet,
-                                    // some Bluetooth tools) never implement
-                                    // DBus Activate - only a context menu.
-                                    // onlyMenu flags that, so left-click
-                                    // falls back to the menu instead of a
-                                    // silent no-op.
                                     if (trayIcon.modelData.onlyMenu && trayIcon.modelData.hasMenu)
                                         trayIcon.modelData.display(root, pos.x, pos.y);
                                     else
@@ -236,7 +272,120 @@ PanelWindow {
                 }
             }
 
-            // ---- Network ----
+            Rectangle {
+                id: sysChip
+                color: hoverSys.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent"
+                implicitWidth: sysRow.implicitWidth + 14
+                implicitHeight: 24
+                radius: 0
+                property bool open: false
+
+                Row {
+                    id: sysRow
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Repeater {
+                        model: [
+                            { kind: "cpu", pct: root.cpuPct, warn: root.cpuPct >= 85 },
+                            { kind: "ram", pct: root.ramPct, warn: root.ramPct >= 85 },
+                            { kind: "disk", pct: root.diskPct, warn: root.diskFreeGB < 10 }
+                        ]
+                        delegate: Row {
+                            required property var modelData
+                            spacing: 4
+
+                            Canvas {
+                                id: statIcon
+                                width: 16
+                                height: 16
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                property string kind: modelData.kind
+                                property color strokeColor: modelData.warn ? "#f87171" : Config.colors.fg
+
+                                onStrokeColorChanged: requestPaint()
+                                Component.onCompleted: requestPaint()
+
+                                onPaint: {
+                                    const ctx = getContext("2d");
+                                    ctx.reset();
+                                    ctx.strokeStyle = strokeColor;
+                                    ctx.fillStyle = strokeColor;
+                                    ctx.lineWidth = 1.3;
+                                    ctx.lineJoin = "round";
+                                    ctx.lineCap = "round";
+
+                                    if (kind === "cpu") {
+                                        ctx.strokeRect(3.5, 3.5, 9, 9);
+                                        const pins = [5, 8, 11];
+                                        for (const p of pins) {
+                                            ctx.beginPath(); ctx.moveTo(p, 1); ctx.lineTo(p, 3.5); ctx.stroke();
+                                            ctx.beginPath(); ctx.moveTo(p, 12.5); ctx.lineTo(p, 15); ctx.stroke();
+                                            ctx.beginPath(); ctx.moveTo(1, p); ctx.lineTo(3.5, p); ctx.stroke();
+                                            ctx.beginPath(); ctx.moveTo(12.5, p); ctx.lineTo(15, p); ctx.stroke();
+                                        }
+                                    } else if (kind === "ram") {
+                                        ctx.strokeRect(1.5, 4.5, 13, 8);
+                                        for (const x of [4, 7, 10, 13]) {
+                                            ctx.beginPath(); ctx.moveTo(x, 12.5); ctx.lineTo(x, 15); ctx.stroke();
+                                        }
+                                    } else {
+                                        ctx.beginPath();
+                                        ctx.ellipse(2.5, 1.5, 11, 3.5);
+                                        ctx.stroke();
+                                        ctx.beginPath();
+                                        ctx.moveTo(2.5, 3.25);
+                                        ctx.lineTo(2.5, 12);
+                                        ctx.stroke();
+                                        ctx.beginPath();
+                                        ctx.moveTo(13.5, 3.25);
+                                        ctx.lineTo(13.5, 12);
+                                        ctx.stroke();
+                                        ctx.beginPath();
+                                        ctx.ellipse(2.5, 10.25, 11, 3.5);
+                                        ctx.stroke();
+                                    }
+                                }
+                            }
+
+                            Canvas {
+                                id: statBar
+                                width: 6
+                                height: 16
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                property real pct: modelData.pct
+                                property bool warn: modelData.warn
+                                property color barColor: warn ? "#f87171" : Config.colors.fg
+
+                                onPctChanged: requestPaint()
+                                onBarColorChanged: requestPaint()
+                                Component.onCompleted: requestPaint()
+
+                                onPaint: {
+                                    const ctx = getContext("2d");
+                                    ctx.reset();
+                                    ctx.fillStyle = barColor;
+                                    ctx.globalAlpha = 0.28;
+                                    ctx.fillRect(0, 0, width, height);
+                                    ctx.globalAlpha = 1.0;
+                                    const h = Math.max(1.5, height * Math.min(1, pct / 100));
+                                    ctx.fillRect(0, height - h, width, h);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                MouseArea {
+                    id: hoverSys
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: sysChip.open = !sysChip.open
+                }
+            }
+
             Rectangle {
                 id: netChip
                 color: "transparent"
@@ -256,11 +405,6 @@ PanelWindow {
                     anchors.centerIn: parent
                     spacing: 6
 
-                    // Hand-drawn instead of theme icons or nerd-font glyphs -
-                    // same approach as the notification bell. Pixel-exact,
-                    // never breaks if the icon theme or font changes.
-                    // No icon for ethernet - text only. Wifi/offline keep
-                    // the hand-drawn signal icon.
                     Canvas {
                         id: netIcon
                         width: 16
@@ -286,7 +430,6 @@ PanelWindow {
                             ctx.lineJoin = "round";
                             ctx.lineCap = "round";
 
-                            // dot
                             ctx.globalAlpha = netType === "none" ? 0.35 : 1.0;
                             ctx.beginPath();
                             ctx.arc(8, 13, 1.3, 0, Math.PI * 2);
@@ -327,7 +470,6 @@ PanelWindow {
                 }
             }
 
-            // ---- Audio ----
             Rectangle {
                 id: audioChip
                 color: "transparent"
@@ -384,7 +526,6 @@ PanelWindow {
                             ctx.lineJoin = "round";
                             ctx.lineCap = "round";
 
-                            // speaker body
                             ctx.beginPath();
                             ctx.moveTo(2, 6);
                             ctx.lineTo(4, 6);
@@ -426,7 +567,6 @@ PanelWindow {
                 }
             }
 
-            // ---- Battery ----
             Rectangle {
                 id: batteryChip
                 visible: UPower.displayDevice && UPower.displayDevice.isLaptopBattery
@@ -482,7 +622,6 @@ PanelWindow {
                 }
             }
 
-            // ---- Notification history toggle (rightmost) ----
             Rectangle {
                 id: historyChip
                 color: hoverHist.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent"
@@ -491,10 +630,6 @@ PanelWindow {
                 radius: 0
                 Layout.leftMargin: 4
 
-                // Drawn directly instead of relying on an icon-theme lookup
-                // (which has been unreliable across themes) or an emoji
-                // (which renders in full color regardless of theme). This
-                // is a small monochrome bell, always exactly Config.colors.fg.
                 Canvas {
                     id: bellIcon
                     anchors.centerIn: parent
@@ -514,23 +649,21 @@ PanelWindow {
                         ctx.lineJoin = "round";
                         ctx.lineCap = "round";
 
-                        // bell body
                         ctx.beginPath();
-                        ctx.moveTo(4, 11);
-                        ctx.lineTo(4, 7.5);
-                        ctx.arc(8, 7.5, 4, Math.PI, 0, false);
-                        ctx.lineTo(12, 11);
+                        ctx.moveTo(4, 10.5);
+                        ctx.lineTo(4, 7);
+                        ctx.arc(8, 7, 4, Math.PI, 0, false);
+                        ctx.lineTo(12, 10.5);
+                        ctx.closePath();
                         ctx.stroke();
 
-                        // bottom bar of the bell
                         ctx.beginPath();
-                        ctx.moveTo(3, 11);
-                        ctx.lineTo(13, 11);
+                        ctx.moveTo(3, 10.5);
+                        ctx.lineTo(13, 10.5);
                         ctx.stroke();
 
-                        // clapper
                         ctx.beginPath();
-                        ctx.arc(8, 13, 1.4, 0, Math.PI * 2);
+                        ctx.arc(8, 13, 1.3, 0, Math.PI * 2);
                         ctx.fill();
                     }
                 }
@@ -550,13 +683,6 @@ PanelWindow {
         }
     }
 
-    // ---------------- CENTER: clock + calendar popup ----------------
-    // Deliberately NOT inside the RowLayout above. Centering it between
-    // two Layout.fillWidth spacers only works if the left and right side
-    // groups are equal width; since they aren't (workspaces vs.
-    // tray/network/audio/battery/history), that approach visibly drifted
-    // off-center. Anchoring directly to root's horizontalCenter is
-    // centered against the whole bar, regardless of what's on either side.
     Rectangle {
         id: clockChip
         anchors.verticalCenter: parent.verticalCenter
@@ -566,9 +692,6 @@ PanelWindow {
         implicitHeight: 24
         radius: 0
 
-        // Click toggles the popup open/closed - was hover-based, but that
-        // made it pop open/shut constantly while just moving the mouse
-        // across the bar.
         property bool open: false
 
         Text {
@@ -597,10 +720,6 @@ PanelWindow {
         }
     }
 
-    // A regular bar PanelWindow is only as tall as its own surface
-    // (Config.bar.height) - anything drawn outside that gets clipped at
-    // the Wayland layer-shell level, not by QML. PopupWindow is its own
-    // separate surface anchored to root, so it can extend below the bar.
     PopupWindow {
         id: calendarPopup
         anchor.window: root
@@ -610,6 +729,12 @@ PanelWindow {
         implicitHeight: calColumn.implicitHeight + 16
         visible: clockChip.open
         color: "#1a2230"
+
+        HyprlandFocusGrab {
+            windows: [calendarPopup]
+            active: clockChip.open
+            onCleared: clockChip.open = false
+        }
 
         Rectangle {
             anchors.fill: parent
@@ -660,7 +785,7 @@ PanelWindow {
                         const year = now.getFullYear();
                         const month = now.getMonth();
                         let firstWeekday = (new Date(year, month, 1)).getDay();
-                        firstWeekday = (firstWeekday + 6) % 7; // Mon=0
+                        firstWeekday = (firstWeekday + 6) % 7;
                         const daysInMonth = new Date(year, month + 1, 0).getDate();
                         let days = [];
                         for (let i = 0; i < firstWeekday; i++) days.push(0);
@@ -696,6 +821,58 @@ PanelWindow {
                 font.family: root.barFontFamily
                 font.pixelSize: 12
                 text: Qt.formatDateTime(clockTimer.now, "dddd, dd MMMM yyyy")
+            }
+        }
+    }
+
+    PopupWindow {
+        id: sysPopup
+        anchor.window: root
+        anchor.rect.x: sysChip.mapToItem(null, 0, 0).x + sysChip.width / 2 - implicitWidth / 2
+        anchor.rect.y: root.height
+        implicitWidth: sysColumn.implicitWidth + 24
+        implicitHeight: sysColumn.implicitHeight + 16
+        visible: sysChip.open
+        color: "#1a2230"
+
+        HyprlandFocusGrab {
+            windows: [sysPopup]
+            active: sysChip.open
+            onCleared: sysChip.open = false
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+            border.color: "#3a4a66"
+            border.width: 1
+        }
+
+        Column {
+            id: sysColumn
+            anchors.centerIn: parent
+            spacing: 6
+
+            Text {
+                color: Config.colors.fg
+                font.family: root.barFontFamily
+                font.pixelSize: 13
+                font.bold: true
+                text: "CPU  " + root.cpuPct + "%"
+            }
+            Text {
+                color: Config.colors.fg
+                font.family: root.barFontFamily
+                font.pixelSize: 13
+                font.bold: true
+                text: "RAM  " + root.ramUsedGB.toFixed(1) + " / " + root.ramTotalGB.toFixed(1) + " GB (" + root.ramPct + "%)"
+            }
+            Text {
+                color: Config.colors.fg
+                font.family: root.barFontFamily
+                font.pixelSize: 13
+                font.bold: true
+                text: "Disk " + root.diskUsedGB.toFixed(0) + " / " + root.diskTotalGB.toFixed(0) + " GB (" + root.diskFreeGB.toFixed(0) + "G free)"
             }
         }
     }

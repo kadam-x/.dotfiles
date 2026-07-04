@@ -1,5 +1,4 @@
 return {
-	-- helix style jumping
 	"smoka7/hop.nvim",
 	event = "VeryLazy",
 	config = function()

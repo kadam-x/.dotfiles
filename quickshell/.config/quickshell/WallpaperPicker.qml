@@ -4,14 +4,6 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 
-// A visual wallpaper picker - shows thumbnails of every image in
-// ~/Pictures/wallpapers (change the path below to match your folder) and
-// applies the chosen one at runtime via awww, with no restart needed.
-//
-// Requires: awww (the `awww-daemon` must already be running - start it
-// once from your Hyprland autostart). Note: this project was renamed from
-// swww to awww in late 2025 - if you installed via a guide referencing
-// swww, the actual binaries on a fresh install are awww/awww-daemon.
 PanelWindow {
     id: window
 
@@ -38,8 +30,6 @@ PanelWindow {
 
     onVisibleChanged: if (visible) refresh()
 
-    // Lists image files in the wallpaper directory. find's output (one
-    // path per line) is split into the model the GridView consumes.
     Process {
         id: listProc
         command: ["find", window.wallpaperDir, "-maxdepth", "1", "-type", "f",
@@ -105,7 +95,7 @@ PanelWindow {
 
                 delegate: Item {
                     id: cell
-                    required property string modelData // file path
+                    required property string modelData 
                     width: grid.cellWidth
                     height: grid.cellHeight
 
@@ -125,9 +115,6 @@ PanelWindow {
                             asynchronous: true
                             cache: true
 
-                            // Lower-res thumbnails so swapping through a big
-                            // folder doesn't decode full-resolution images
-                            // for every tile at once.
                             sourceSize.width: 320
                             sourceSize.height: 200
                         }
