@@ -188,6 +188,11 @@ hl.window_rule({
 	match = { class = "obsidian" },
 	workspace = "current",
 })
+
+hl.window_rule({
+	match = { class = "anki" },
+	workspace = "current",
+})
 -------------------
 ---- AUTOSTART ----
 -------------------
