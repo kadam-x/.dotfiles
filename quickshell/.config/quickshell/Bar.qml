@@ -332,18 +332,18 @@ PanelWindow {
                                         }
                                     } else {
                                         ctx.beginPath();
-                                        ctx.ellipse(2.5, 1.5, 11, 3.5);
+                                        ctx.ellipse(2.5, 2.5, 11, 3.5);
                                         ctx.stroke();
                                         ctx.beginPath();
-                                        ctx.moveTo(2.5, 3.25);
-                                        ctx.lineTo(2.5, 12);
+                                        ctx.moveTo(2.5, 4.25);
+                                        ctx.lineTo(2.5, 13);
                                         ctx.stroke();
                                         ctx.beginPath();
-                                        ctx.moveTo(13.5, 3.25);
-                                        ctx.lineTo(13.5, 12);
+                                        ctx.moveTo(13.5, 4.25);
+                                        ctx.lineTo(13.5, 13);
                                         ctx.stroke();
                                         ctx.beginPath();
-                                        ctx.ellipse(2.5, 10.25, 11, 3.5);
+                                        ctx.ellipse(2.5, 11.25, 11, 3.5);
                                         ctx.stroke();
                                     }
                                 }
