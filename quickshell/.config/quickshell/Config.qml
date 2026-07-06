@@ -7,7 +7,7 @@ Singleton {
     readonly property QtObject colors: QtObject {
         readonly property color bg: "#0d0e17"
         readonly property color bgDark: "#1c1c1c"
-        readonly property color fg: "#dadada"
+        readonly property color fg: "#ffffff"
         readonly property color muted: "#747474"
         readonly property color cyan: "#7abed3"
         readonly property color purple: "#c481ff"
