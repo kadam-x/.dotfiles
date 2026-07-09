@@ -23,6 +23,7 @@ hl.config({
 		enabled = false,
 	},
 })
+
 ---------------
 ---- INPUT ----
 ---------------
@@ -91,6 +92,8 @@ hl.bind(
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
 	{ locked = true, repeating = true }
 )
+
+hl.bind(mainMod .. " + Period", hl.dsp.exec_cmd("qs ipc call emojipicker toggle"))
 
 -- Audio
 hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
@@ -204,4 +207,5 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("qbittorrent --no-splash")
 	hl.exec_cmd("qs")
 	hl.exec_cmd("awww-daemon")
+	hl.exec_cmd("hypridle")
 end)

@@ -37,4 +37,5 @@ ShellRoot {
             wallpaperPicker.visible = !wallpaperPicker.visible;
         }
     }
+    EmojiPicker {}
 }
