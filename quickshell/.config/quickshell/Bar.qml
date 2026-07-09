@@ -181,10 +181,17 @@ PanelWindow {
                         height: 30
                         radius: 0
                         color: wsChip.modelData.hasUrgent ? "#ff5454"
-                             : wsChip.isFocused ? Config.colors.fg
                              : (hover.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
                         border.width: 0
 
+                        Rectangle {
+                            visible: wsChip.isFocused && !wsChip.modelData.hasUrgent
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.bottom: parent.bottom
+                            height: 2
+                            color: Config.colors.fg
+                        }
                         MouseArea {
                             id: hover
                             anchors.fill: parent
@@ -200,7 +207,7 @@ PanelWindow {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: wsChip.modelData.name
-                                color: (wsChip.modelData.hasUrgent || wsChip.isFocused) ? "#000000" : Config.colors.fg
+                                color: wsChip.modelData.hasUrgent ? "#000000" : Config.colors.fg
                                 font.family: root.barFontFamily
                                 font.pixelSize: root.barFontSize
                                 font.bold: root.barFontBold
