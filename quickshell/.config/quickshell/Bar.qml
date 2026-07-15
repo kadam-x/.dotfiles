@@ -483,6 +483,7 @@ PanelWindow {
                 implicitWidth: audioRow.implicitWidth + 14
                 implicitHeight: 24
                 radius: 0
+                property bool open: false
 
                 readonly property var sink: Pipewire.defaultAudioSink
                 readonly property bool muted: sink && sink.audio ? sink.audio.muted : false
@@ -494,6 +495,8 @@ PanelWindow {
                     acceptedButtons: Qt.LeftButton
                     onEntered: audioChip.color = Qt.rgba(1, 1, 1, 0.05)
                     onExited: audioChip.color = "transparent"
+
+                    onClicked: audioChip.open = !audioChip.open
 
                     onWheel: wheel => {
                         if (!audioChip.sink || !audioChip.sink.audio)
@@ -881,6 +884,192 @@ PanelWindow {
                 font.bold: true
                 text: "Disk " + root.diskUsedGB.toFixed(0) + " / " + root.diskTotalGB.toFixed(0) + " GB (" + root.diskFreeGB.toFixed(0) + "G free)"
             }
+        }
+    }
+
+    PopupWindow {
+        id: audioPopup
+        anchor.window: root
+        anchor.rect.x: {
+            const gp = audioChip.mapToItem(null, 0, 0);
+            const x = gp.x + audioChip.width / 2 - implicitWidth / 2;
+            return Math.max(4, Math.min(x, root.width - implicitWidth - 4));
+        }
+        anchor.rect.y: root.height
+        implicitWidth: 320
+        implicitHeight: audioColumn.implicitHeight + 24
+        visible: audioChip.open
+        color: "#1a2230"
+
+        HyprlandFocusGrab {
+            windows: [audioPopup]
+            active: audioChip.open
+            onCleared: audioChip.open = false
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+            border.color: "#3a4a66"
+            border.width: 1
+        }
+
+        Repeater {
+            model: Pipewire.nodes.values
+
+            delegate: PwObjectTracker {
+                required property var modelData
+                objects: modelData.audio ? [modelData] : []
+            }
+        }
+
+        Column {
+            id: audioColumn
+            anchors.fill: parent
+            anchors.margins: 12
+            spacing: 10
+
+            Text {
+                color: Config.colors.fg
+                font.family: root.barFontFamily
+                font.pixelSize: 13
+                font.bold: true
+                text: "Output Device"
+            }
+
+            Repeater {
+                model: {
+                    const out = [];
+                    for (const n of Pipewire.nodes.values) {
+                        if (!n.isStream && n.isSink && n.audio)
+                            out.push(n);
+                    }
+                    return out;
+                }
+
+                delegate: Rectangle {
+                    id: sinkRow
+                    required property var modelData
+                    readonly property bool isDefault: Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.id === modelData.id
+
+                    width: audioColumn.width
+                    height: 28
+                    color: sinkHover.containsMouse ? Qt.rgba(1, 1, 1, 0.06) : "transparent"
+
+                    Row {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 4
+                        spacing: 6
+
+                        Text {
+                            text: sinkRow.isDefault ? "●" : "○"
+                            color: Config.colors.fg
+                            font.pixelSize: 12
+                        }
+                        Text {
+                            text: sinkRow.modelData.description || sinkRow.modelData.name
+                            color: Config.colors.fg
+                            font.family: root.barFontFamily
+                            font.pixelSize: 13
+                        }
+                    }
+
+                    MouseArea {
+                        id: sinkHover
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: setDefaultSinkProc.run(sinkRow.modelData.id)
+                    }
+                }
+            }
+
+            Rectangle {
+                width: audioColumn.width
+                height: 1
+                color: "#3a4a66"
+            }
+
+            Text {
+                color: Config.colors.fg
+                font.family: root.barFontFamily
+                font.pixelSize: 13
+                font.bold: true
+                text: "Applications"
+            }
+
+            Repeater {
+                model: {
+                    const out = [];
+                    for (const n of Pipewire.nodes.values) {
+                        if (n.isStream && n.audio)
+                            out.push(n);
+                    }
+                    return out;
+                }
+
+                delegate: Column {
+                    id: streamRow
+                    required property var modelData
+                    width: audioColumn.width
+                    spacing: 3
+
+                    Row {
+                        width: parent.width
+                        spacing: 6
+
+                        Text {
+                            text: streamRow.modelData.description || streamRow.modelData.name || "App"
+                            color: Config.colors.fg
+                            font.family: root.barFontFamily
+                            font.pixelSize: 12
+                            elide: Text.ElideRight
+                            width: parent.width - muteBtn.width - 10
+                        }
+
+                        Text {
+                            id: muteBtn
+                            text: streamRow.modelData.audio.muted ? "muted" : "vol"
+                            color: Config.colors.fg
+                            font.pixelSize: 11
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: streamRow.modelData.audio.muted = !streamRow.modelData.audio.muted
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        width: parent.width
+                        height: 14
+                        color: "#111826"
+
+                        Rectangle {
+                            width: parent.width * Math.min(1, streamRow.modelData.audio.volume)
+                            height: parent.height
+                            color: Config.colors.fg
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: mouse => {
+                                streamRow.modelData.audio.volume = Math.max(0, Math.min(1, mouse.x / width));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Process {
+            id: setDefaultSinkProc
+            property int targetId: -1
+            function run(id) {
+                targetId = id;
+                running = true;
+            }
+            command: ["wpctl", "set-default", String(targetId)]
         }
     }
 }
