@@ -8,6 +8,10 @@ vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "q/", "<nop>")
 vim.keymap.set("n", "q?", "<nop>")
 
+-- Swap Ctrl+I and Ctrl+O behaviors
+vim.keymap.set("n", "<C-i>", "<C-o>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-o>", "<C-i>", { noremap = true, silent = true })
+
 -- delete/change without yanking
 vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking" })
 vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete to EOL without yanking" })
