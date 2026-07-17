@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import Quickshell.Services.UPower
@@ -44,6 +43,108 @@ PanelWindow {
 
     property real _prevIdle: 0
     property real _prevTotal: 0
+
+    property var wsList: []
+    property var _lastTree: null
+    property var _lastWorkspaces: null
+
+    function refreshWsTree() {
+        treeProc.running = true;
+        workspacesProc.running = true;
+    }
+
+    function _rebuildWsList() {
+        if (!root._lastTree || !root._lastWorkspaces)
+            return;
+
+        function collectWindows(node) {
+            let out = [];
+            const children = (node.nodes || []).concat(node.floating_nodes || []);
+            for (const child of children) {
+                if (child.app_id || (child.window_properties && child.window_properties.class))
+                    out.push(child);
+                out = out.concat(collectWindows(child));
+            }
+            return out;
+        }
+
+        const treeWorkspacesByName = {};
+        function walkForWorkspaces(node) {
+            const children = (node.nodes || []).concat(node.floating_nodes || []);
+            for (const child of children) {
+                if (child.type === "workspace") {
+                    if (child.name !== "__i3_scratch")
+                        treeWorkspacesByName[child.name] = child;
+                } else {
+                    walkForWorkspaces(child);
+                }
+            }
+        }
+        walkForWorkspaces(root._lastTree);
+
+        const workspaces = [];
+        for (const ws of root._lastWorkspaces) {
+            if (ws.name === "__i3_scratch")
+                continue;
+            const treeNode = treeWorkspacesByName[ws.name];
+            workspaces.push({
+                id: ws.id,
+                num: ws.num,
+                name: ws.name,
+                focused: !!ws.focused,
+                urgent: !!ws.urgent,
+                windows: treeNode ? collectWindows(treeNode) : [],
+            });
+        }
+
+        workspaces.sort((a, b) => a.num - b.num);
+        root.wsList = workspaces;
+    }
+
+    Component.onCompleted: refreshWsTree()
+
+    Process {
+        id: treeProc
+        command: ["swaymsg", "-t", "get_tree"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    root._lastTree = JSON.parse(text);
+                } catch (e) {
+                    return;
+                }
+                root._rebuildWsList();
+            }
+        }
+    }
+
+    Process {
+        id: workspacesProc
+        command: ["swaymsg", "-t", "get_workspaces"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    root._lastWorkspaces = JSON.parse(text);
+                } catch (e) {
+                    return;
+                }
+                root._rebuildWsList();
+            }
+        }
+    }
+
+    Process {
+        id: subscribeProc
+        command: ["swaymsg", "-t", "subscribe", "-m", "[\"window\",\"workspace\"]"]
+        running: true
+        stdout: SplitParser {
+            splitMarker: "\n"
+            onRead: line => {
+                if (line.trim().length > 0)
+                    root.refreshWsTree();
+            }
+        }
+    }
 
     Timer {
         interval: 5000
@@ -145,6 +246,16 @@ PanelWindow {
         }
     }
 
+    Process {
+        id: switchWsProc
+        property int targetNum: -1
+        function run(num) {
+            targetNum = num;
+            running = true;
+        }
+        command: ["swaymsg", "workspace", "number", String(targetNum)]
+    }
+
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: 0
@@ -158,34 +269,24 @@ PanelWindow {
                 spacing: 6
 
                 Repeater {
-                    model: Hyprland.workspaces
+                    model: root.wsList
 
                     delegate: Rectangle {
                         id: wsChip
 
                         required property var modelData
 
-                        readonly property bool isFocused:
-                            Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === modelData.id
-
-                        readonly property var wsToplevels: {
-                            let out = [];
-                            for (const tl of Hyprland.toplevels.values) {
-                                if (tl.workspace && tl.workspace.id === modelData.id)
-                                    out.push(tl);
-                            }
-                            return out;
-                        }
+                        readonly property bool isFocused: wsChip.modelData.focused
 
                         width: wsRow.implicitWidth + 12
                         height: 30
                         radius: 0
-                        color: wsChip.modelData.hasUrgent ? "#ff5454"
+                        color: wsChip.modelData.urgent ? "#ff5454"
                              : (hover.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
                         border.width: 0
 
                         Rectangle {
-                            visible: wsChip.isFocused && !wsChip.modelData.hasUrgent
+                            visible: wsChip.isFocused && !wsChip.modelData.urgent
                             anchors.left: parent.left
                             anchors.right: parent.right
                             anchors.bottom: parent.bottom
@@ -196,7 +297,7 @@ PanelWindow {
                             id: hover
                             anchors.fill: parent
                             hoverEnabled: true
-                            onClicked: wsChip.modelData.activate()
+                            onClicked: switchWsProc.run(wsChip.modelData.num)
                         }
 
                         Row {
@@ -207,7 +308,7 @@ PanelWindow {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: wsChip.modelData.name
-                                color: wsChip.modelData.hasUrgent ? "#000000" : Config.colors.fg
+                                color: wsChip.modelData.urgent ? "#000000" : Config.colors.fg
                                 font.family: root.barFontFamily
                                 font.pixelSize: root.barFontSize
                                 font.bold: root.barFontBold
@@ -218,13 +319,16 @@ PanelWindow {
                                 spacing: 4
 
                                 Repeater {
-                                    model: wsChip.wsToplevels
+                                    model: wsChip.modelData.windows
 
                                     delegate: IconImage {
                                         required property var modelData
 
+                                        readonly property string appId: modelData.app_id
+                                            || (modelData.window_properties ? modelData.window_properties.class : "")
+
                                         readonly property var desktopEntry:
-                                            modelData.wayland ? DesktopEntries.heuristicLookup(modelData.wayland.appId) : null
+                                            appId ? DesktopEntries.heuristicLookup(appId) : null
 
                                         source: Quickshell.iconPath(desktopEntry ? desktopEntry.icon : "", true)
                                         implicitSize: 16
@@ -740,12 +844,6 @@ PanelWindow {
         visible: clockChip.open
         color: "#1a2230"
 
-        HyprlandFocusGrab {
-            windows: [calendarPopup]
-            active: clockChip.open
-            onCleared: clockChip.open = false
-        }
-
         Rectangle {
             anchors.fill: parent
             color: "transparent"
@@ -845,12 +943,6 @@ PanelWindow {
         visible: sysChip.open
         color: "#1a2230"
 
-        HyprlandFocusGrab {
-            windows: [sysPopup]
-            active: sysChip.open
-            onCleared: sysChip.open = false
-        }
-
         Rectangle {
             anchors.fill: parent
             color: "transparent"
@@ -900,12 +992,6 @@ PanelWindow {
         implicitHeight: audioColumn.implicitHeight + 24
         visible: audioChip.open
         color: "#1a2230"
-
-        HyprlandFocusGrab {
-            windows: [audioPopup]
-            active: audioChip.open
-            onCleared: audioChip.open = false
-        }
 
         Rectangle {
             anchors.fill: parent
