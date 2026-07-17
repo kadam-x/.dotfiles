@@ -834,29 +834,6 @@ PanelWindow {
         }
     }
 
-    PanelWindow {
-        id: clickCatcher
-        anchors {
-            top: true
-            left: true
-            right: true
-            bottom: true
-        }
-        color: "transparent"
-        visible: clockChip.open || sysChip.open || audioChip.open
-        WlrLayershell.layer: WlrLayer.Overlay
-        exclusiveZone: 0
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                clockChip.open = false;
-                sysChip.open = false;
-                audioChip.open = false;
-            }
-        }
-    }
-
     PopupWindow {
         id: calendarPopup
         anchor.window: root
