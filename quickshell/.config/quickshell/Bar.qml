@@ -283,7 +283,7 @@ PanelWindow {
                         radius: 0
                         color: wsChip.modelData.urgent ? "#ff5454"
                              : (hover.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
-                        border.width: 0
+                        border.width: 2
 
                         Rectangle {
                             visible: wsChip.isFocused && !wsChip.modelData.urgent
@@ -870,8 +870,8 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            border.color: "#3a4a66"
-            border.width: 1
+            border.color: "#71e9c4"
+            border.width: 2
         }
 
         Column {
@@ -969,7 +969,7 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            border.color: "#3a4a66"
+            border.color: "#71e9c4"
             border.width: 1
         }
 
@@ -1019,7 +1019,7 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            border.color: "#3a4a66"
+            border.color: "#71e9c4"
             border.width: 1
         }
 
@@ -1096,7 +1096,7 @@ PanelWindow {
             Rectangle {
                 width: audioColumn.width
                 height: 1
-                color: "#3a4a66"
+                color: "#71e9c4"
             }
 
             Text {

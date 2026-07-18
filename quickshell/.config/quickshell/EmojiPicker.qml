@@ -231,8 +231,8 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            border.color: "#3a4a66"
-            border.width: 1
+            border.color: "#71e9c4"
+            border.width: 2
         }
 
         ColumnLayout {
@@ -247,7 +247,7 @@ PanelWindow {
                 font.pixelSize: 21
                 color: "#dadada"
                 background: Rectangle {
-                    color: "#111826"
+                    color: "#0d0e17"
                     radius: 0
                     border.color: "#3a4a66"
                     border.width: 1
