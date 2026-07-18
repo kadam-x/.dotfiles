@@ -1,3 +1,4 @@
+import qs
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -221,7 +222,7 @@ PanelWindow {
         anchors.centerIn: parent
         width: 510
         height: 630
-        color: "#1a2230"
+        color: Config.colors.bg
 
         MouseArea {
             anchors.fill: parent
@@ -231,8 +232,8 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             color: "transparent"
-            border.color: "#71e9c4"
-            border.width: 2
+            border.color: Config.colors.accent
+            border.width: Config.borders.width
         }
 
         ColumnLayout {
@@ -245,12 +246,12 @@ PanelWindow {
                 Layout.fillWidth: true
                 placeholderText: ""
                 font.pixelSize: 21
-                color: "#dadada"
+                color: Config.colors.fg
                 background: Rectangle {
-                    color: "#0d0e17"
+                    color: Config.colors.bg
                     radius: 0
-                    border.color: "#3a4a66"
-                    border.width: 1
+                    border.color: Config.colors.accent
+                    border.width: Config.borders.width
                 }
                 Keys.onEscapePressed: root.open = false
                 onAccepted: {
@@ -276,7 +277,7 @@ PanelWindow {
                     width: 54
                     height: 54
                     radius: 0
-                    color: hoverArea.containsMouse ? Qt.rgba(1, 1, 1, 0.08) : "transparent"
+                    color: hoverArea.containsMouse ? Qt.rgba(1, 1, 1, 0.06) : "transparent"
 
                     Text {
                         anchors.centerIn: parent

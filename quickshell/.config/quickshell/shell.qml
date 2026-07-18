@@ -2,14 +2,14 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import qs.Bar
+import qs.Modules
 
 ShellRoot {
     Bar {}
 
     Notifications {}
 
-    // The launcher starts hidden - toggle it with the IPC call below,
-    // bound to a Hyprland keybind, instead of always being on screen.
     Drun {
         id: drun
         visible: false
@@ -37,5 +37,6 @@ ShellRoot {
             wallpaperPicker.visible = !wallpaperPicker.visible;
         }
     }
+
     EmojiPicker {}
 }

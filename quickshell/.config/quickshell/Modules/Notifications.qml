@@ -1,3 +1,4 @@
+import qs
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -8,9 +9,6 @@ import QtQuick.Layouts
 Scope {
     id: root
 
-    // Notification history - separate from the live popup list below.
-    // Entries are appended on arrival and persist after the popup
-    // dismisses/expires, until cleared by the user from the history panel.
     ListModel {
         id: historyModel
     }
@@ -22,7 +20,6 @@ Scope {
             notifAppName: notification.appName || "",
             notifTime: Qt.formatDateTime(new Date(), "HH:mm")
         });
-        // cap history length so it doesn't grow forever
         while (historyModel.count > 50)
             historyModel.remove(historyModel.count - 1);
     }
@@ -30,12 +27,6 @@ Scope {
     NotificationServer {
         id: server
 
-        // Full capability advertisement - in particular persistenceSupported,
-        // which defaults to false. Clients asking for a persistent/
-        // non-auto-dismissing notification (e.g. browser calendar reminders)
-        // can decide the system service can't satisfy that and fall back to
-        // drawing their own notification UI instead of going through DBus at
-        // all if this isn't set.
         actionsSupported: true
         actionIconsSupported: true
         bodySupported: true
@@ -51,7 +42,6 @@ Scope {
         }
     }
 
-    // ---------------- Live popups (top-right) ----------------
     PanelWindow {
         visible: server.trackedNotifications.values.length > 0
 
@@ -78,14 +68,14 @@ Scope {
                 model: server.trackedNotifications
 
                 delegate: Rectangle {
-                    required property var modelData // a Notification
+                    required property var modelData
 
                     Layout.fillWidth: true
                     implicitHeight: textCol.implicitHeight + 20
                     radius: 0
-                    color: Config.colors.surface2
-                    border.color: Config.colors.border
-                    border.width: 1
+                    color: Config.colors.bg
+                    border.color: Config.colors.accent
+                    border.width: Config.borders.width
 
                     ColumnLayout {
                         id: textCol
@@ -106,7 +96,7 @@ Scope {
                         Text {
                             text: modelData.body
                             color: Config.colors.muted
-                            linkColor: Config.colors.cyan
+                            linkColor: Config.colors.accent
                             font.family: Config.bar.fontFamily
                             font.pixelSize: 12
                             wrapMode: Text.WordWrap
@@ -130,10 +120,6 @@ Scope {
         }
     }
 
-    // ---------------- History panel (toggled from the bar) ----------------
-    // Covers the whole screen with an invisible backdrop so clicking
-    // anywhere outside the panel closes it - the actual visible panel is
-    // just anchored top-right within that full-screen window.
     PanelWindow {
         id: historyWindow
         visible: false
@@ -151,10 +137,6 @@ Scope {
 
         color: "transparent"
 
-        // Click-outside-to-close backdrop. Sits behind the panel and
-        // covers the full window; the panel itself stops propagation by
-        // simply being a sibling Item that the click never reaches through
-        // (MouseAreas don't pass clicks to siblings beneath them).
         MouseArea {
             anchors.fill: parent
             onClicked: historyWindow.visible = false
@@ -169,15 +151,13 @@ Scope {
             width: 360
             height: 420
             radius: 0
-            color: Config.colors.surface2
-            border.color: Config.colors.border
-            border.width: 1
+            color: Config.colors.bg
+            border.color: Config.colors.accent
+            border.width: Config.borders.width
 
-            // Swallow clicks so they don't fall through to the backdrop
-            // MouseArea behind this panel.
             MouseArea {
                 anchors.fill: parent
-                onClicked: {} // consume the click, do nothing
+                onClicked: {}
             }
 
             ColumnLayout {
@@ -200,7 +180,7 @@ Scope {
 
                     Text {
                         text: "Clear"
-                        color: "#4fa8e8"
+                        color: Config.colors.accent
                         font.family: Config.bar.fontFamily
                         font.pixelSize: 12
 
@@ -236,7 +216,7 @@ Scope {
                         width: ListView.view.width
                         implicitHeight: histTextCol.implicitHeight + 16
                         radius: 0
-                        color: Config.colors.surface2
+                        color: Config.colors.bg
 
                         ColumnLayout {
                             id: histTextCol
@@ -269,7 +249,7 @@ Scope {
                                 text: notifBody
                                 visible: text.length > 0
                                 color: Config.colors.muted
-                                linkColor: Config.colors.cyan
+                                linkColor: Config.colors.accent
                                 font.family: Config.bar.fontFamily
                                 font.pixelSize: 12
                                 wrapMode: Text.WordWrap

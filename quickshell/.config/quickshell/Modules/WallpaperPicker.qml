@@ -1,3 +1,4 @@
+import qs
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -59,9 +60,9 @@ PanelWindow {
         width: 720
         height: 480
         radius: 0
-        color: Config.colors.surface2
-        border.color: Config.colors.border
-        border.width: 1
+        color: Config.colors.bg
+        border.color: Config.colors.accent
+        border.width: Config.borders.width
 
         ColumnLayout {
             anchors.fill: parent
@@ -95,7 +96,7 @@ PanelWindow {
 
                 delegate: Item {
                     id: cell
-                    required property string modelData 
+                    required property string modelData
                     width: grid.cellWidth
                     height: grid.cellHeight
 
@@ -103,9 +104,9 @@ PanelWindow {
                         anchors.fill: parent
                         anchors.margins: 6
                         radius: 0
-                        color: Config.colors.bgDark
-                        border.color: hover.containsMouse ? Config.colors.blue : "transparent"
-                        border.width: 2
+                        color: Config.colors.bg
+                        border.color: hover.containsMouse ? Config.colors.accent : "transparent"
+                        border.width: Config.borders.width
                         clip: true
 
                         Image {

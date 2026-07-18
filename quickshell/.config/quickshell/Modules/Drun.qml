@@ -1,3 +1,4 @@
+import qs
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
@@ -10,13 +11,8 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    // Render above everything (Overlay layer) but reserve zero screen
-    // space - without this, having 3 anchors makes Hyprland treat this
-    // like a bar and push every window down to make room for it.
     exclusionMode: ExclusionMode.Ignore
 
-    // dmenu-style: a single full-width strip docked to the top edge,
-    // same as a bar - not a floating centered box.
     anchors {
         top: true
         left: true
@@ -26,9 +22,6 @@ PanelWindow {
     implicitHeight: Config.bar.height
     color: "#3a3a3a"
 
-    // Reset state every time this window is shown again - it's only ever
-    // hidden (visible = false), never destroyed, so without this the
-    // TextInput keeps whatever you typed last time around.
     onVisibleChanged: {
         if (visible) {
             searchField.text = "";
@@ -37,14 +30,12 @@ PanelWindow {
         }
     }
 
-    // All installed, visible desktop applications, sorted alphabetically.
     readonly property var allApps: {
         const apps = [...DesktopEntries.applications.values];
         apps.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
         return apps;
     }
 
-    // Apps filtered by the current search query.
     readonly property var filteredApps: {
         const q = searchField.text.trim().toLowerCase();
         if (q === "")
@@ -56,14 +47,13 @@ PanelWindow {
         });
     }
 
-    // Which match is currently highlighted, moved with Left/Right/Tab.
     property int selectedIndex: 0
 
     function launch(entry) {
         if (!entry)
             return;
         entry.execute();
-        window.visible = false; // hide rather than quit - the process stays alive for next time
+        window.visible = false;
     }
 
     RowLayout {
@@ -80,8 +70,6 @@ PanelWindow {
             font.bold: true
         }
 
-        // Fixed-width input field, like dmenu's prompt box - the match
-        // list takes up the remaining space to the right of it.
         TextInput {
             id: searchField
             Layout.preferredWidth: 220
@@ -102,7 +90,6 @@ PanelWindow {
             onTextChanged: window.selectedIndex = 0
         }
 
-        // The horizontally-scrolling match list - dmenu's signature look.
         ListView {
             id: resultsList
             Layout.fillWidth: true
@@ -112,11 +99,6 @@ PanelWindow {
             clip: true
             model: window.filteredApps
 
-            // Keep the selected entry scrolled into view as arrow keys move
-            // it - but instantly, not animated. Without highlightMoveDuration
-            // set to 0, ListView smoothly eases the viewport on every
-            // keypress, which reads as sluggish for something that should
-            // feel instant.
             highlightFollowsCurrentItem: true
             highlightMoveDuration: 0
             highlightResizeDuration: 0
@@ -124,7 +106,7 @@ PanelWindow {
 
             delegate: Rectangle {
                 id: row
-                required property var modelData // a DesktopEntry
+                required property var modelData
                 required property int index
 
                 readonly property bool isSelected: index === window.selectedIndex
