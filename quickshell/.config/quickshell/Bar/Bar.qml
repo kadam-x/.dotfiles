@@ -152,6 +152,7 @@ PanelWindow {
     AudioPopup {
         anchorWindow: root
         anchorChip: audioChip
+        barWidth: root.width
         open: root.audioOpen
     }
 

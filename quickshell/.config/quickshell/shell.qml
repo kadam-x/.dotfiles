@@ -20,8 +20,6 @@ ShellRoot {
 
         function toggle(): void {
             drun.visible = !drun.visible;
-            if (drun.visible)
-                drun.forceActiveFocus();
         }
     }
 

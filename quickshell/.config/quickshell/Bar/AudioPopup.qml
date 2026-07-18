@@ -10,13 +10,14 @@ PopupWindow {
 
     property var anchorWindow
     property var anchorChip
+    property real barWidth: 0
     property bool open: false
 
     anchor.window: anchorWindow
     anchor.rect.x: {
         const gp = anchorChip.mapToItem(null, 0, 0);
         const x = gp.x + anchorChip.width / 2 - implicitWidth / 2;
-        return Math.max(4, Math.min(x, root.width - implicitWidth - 4));
+        return Math.max(4, Math.min(x, barWidth - implicitWidth - 4));
     }
     anchor.rect.y: anchorWindow.height
     implicitWidth: 320
