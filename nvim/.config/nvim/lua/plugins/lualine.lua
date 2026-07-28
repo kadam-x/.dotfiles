@@ -25,6 +25,14 @@ return {
 							return ""
 						end,
 					},
+					{
+						function()
+							local count = #vim.tbl_filter(function(bufnr)
+								return vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buflisted
+							end, vim.api.nvim_list_bufs())
+							return "bufs: " .. count
+						end,
+					},
 				},
 				lualine_y = {},
 				lualine_z = { "location" },

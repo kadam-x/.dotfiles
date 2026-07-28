@@ -25,6 +25,10 @@ PopupWindow {
     visible: open
     color: Config.colors.bg
 
+    PwObjectTracker {
+        objects: Pipewire.nodes.values
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "transparent"

@@ -5,25 +5,15 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import Quickshell.Hyprland
 
 PanelWindow {
     id: root
 
-    property bool open: false
-    visible: open
-
-    onOpenChanged: {
-        if (open) {
-            Qt.callLater(() => focusGrab.active = true);
-        } else {
-            focusGrab.active = false;
-        }
-    }
+    visible: false
 
     WlrLayershell.namespace: "emoji-picker"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     anchors {
         top: true
@@ -32,24 +22,20 @@ PanelWindow {
         bottom: true
     }
 
-    color: "transparent"
+    color: Qt.rgba(0, 0, 0, 0.55)
 
     IpcHandler {
         target: "emojipicker"
 
         function toggle() {
-            root.open = !root.open;
-            if (root.open) {
-                searchField.text = "";
-                searchField.forceActiveFocus();
-            }
+            root.visible = !root.visible;
         }
     }
 
-    HyprlandFocusGrab {
-        id: focusGrab
-        windows: [root]
-        onCleared: root.open = false
+    onVisibleChanged: {
+        if (visible) {
+            searchField.text = "";
+        }
     }
 
     readonly property var emojis: [
@@ -212,11 +198,6 @@ PanelWindow {
         return emojis.filter(e => words.every(w => e.k.includes(w)));
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: root.open = false
-    }
-
     Rectangle {
         id: card
         anchors.centerIn: parent
@@ -244,6 +225,7 @@ PanelWindow {
             TextField {
                 id: searchField
                 Layout.fillWidth: true
+                focus: true
                 placeholderText: ""
                 font.pixelSize: 21
                 color: Config.colors.fg
@@ -253,12 +235,12 @@ PanelWindow {
                     border.color: Config.colors.accent
                     border.width: Config.borders.width
                 }
-                Keys.onEscapePressed: root.open = false
+                Keys.onEscapePressed: root.visible = false
                 onAccepted: {
                     if (root.filtered.length > 0) {
                         copyProc.emoji = root.filtered[0].c;
                         copyProc.running = true;
-                        root.open = false;
+                        root.visible = false;
                     }
                 }
             }
@@ -292,7 +274,7 @@ PanelWindow {
                         onClicked: {
                             copyProc.emoji = parent.modelData.c;
                             copyProc.running = true;
-                            root.open = false;
+                            root.visible = false;
                         }
                     }
                 }

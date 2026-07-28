@@ -36,5 +36,16 @@ ShellRoot {
         }
     }
 
+    NotesPicker {
+            id: notesPicker
+            visible: false
+        }
+    IpcHandler {
+        target: "notes"
+        function toggle(): void {
+            notesPicker.visible = !notesPicker.visible;
+        }
+    }
+
     EmojiPicker {}
 }

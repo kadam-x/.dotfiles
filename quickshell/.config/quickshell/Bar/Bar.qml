@@ -68,7 +68,9 @@ PanelWindow {
             Layout.alignment: Qt.AlignRight
             spacing: 2
 
-            SystemTray {}
+            SystemTray {
+                trayWindow: root
+            }
 
             SysStats {
                 id: sysChip
