@@ -1,6 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		require("lualine").setup({
 			options = {
@@ -20,7 +21,10 @@ return {
 					{
 						function()
 							if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
-								return vim.bo.filetype
+								local devicons = require("nvim-web-devicons")
+								local icon =
+									devicons.get_icon(vim.fn.expand("%:t"), vim.bo.filetype, { default = true })
+								return (icon or "") .. " " .. vim.bo.filetype
 							end
 							return ""
 						end,

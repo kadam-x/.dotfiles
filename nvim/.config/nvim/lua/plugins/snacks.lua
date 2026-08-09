@@ -67,7 +67,10 @@ return {
 			Snacks.notifier.hide()
 		end, { desc = "Dismiss notifications" })
 		vim.keymap.set({ "n", "t" }, "<A-h>", function()
-			Snacks.terminal.toggle(nil, { win = { position = "bottom" } })
+			Snacks.terminal.toggle(
+				nil,
+				{ win = { position = "float", width = 0.95, height = 0.65, border = "single" } }
+			)
 		end, { desc = "Toggle terminal" })
 		vim.keymap.set("n", "<tab>", function()
 			Snacks.picker.buffers()
