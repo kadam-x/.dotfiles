@@ -1,0 +1,51 @@
+# ──────────────────────────────
+#   FONT
+# ──────────────────────────────
+[font]
+size = 18
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+
+# ──────────────────────────────
+#   WINDOW BEHAVIOR
+# ──────────────────────────────
+[window]
+padding = { x = 14, y = 14 }
+decorations = "none"
+
+[terminal.shell]
+program = "/usr/bin/zsh"
+
+# ──────────────────────────────
+#   SCROLLBACK
+# ──────────────────────────────
+[scrolling]
+history = 5000
+
+# ──────────────────────────────
+#   COLORS
+# ──────────────────────────────
+[colors.primary]
+background = "#0d0e17"
+foreground = "#dadada"
+
+[colors.normal]
+black   = "#1c1c1c"
+red     = "#ab092c"
+green   = "#71e9c4"
+yellow  = "#f38b3f"
+blue    = "#6aa2ff"
+magenta = "#c481ff"
+cyan    = "#7abed3"
+white   = "#dadada"
+
+[colors.bright]
+black   = "#747474"
+red     = "#ab092c"
+green   = "#71e9c4"
+yellow  = "#f38b3f"
+blue    = "#6aa2ff"
+magenta = "#c481ff"
+cyan    = "#7abed3"
+white   = "#ffffff"
