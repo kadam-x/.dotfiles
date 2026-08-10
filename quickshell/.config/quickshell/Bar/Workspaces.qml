@@ -19,7 +19,7 @@ Row {
             required property var modelData
             readonly property bool isFocused: wsChip.modelData.focused
             width: wsRow.implicitWidth + 12
-            height: 30
+            height: 40
             radius: 0
             color: wsChip.modelData.urgent ? "#ff5454"
                  : (wsChip.isFocused ? "#095c74"

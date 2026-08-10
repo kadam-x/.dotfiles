@@ -5,7 +5,7 @@ import QtQuick
 
 Singleton {
     readonly property QtObject colors: QtObject {
-        readonly property color bg: "#1c2121"
+        readonly property color bg: "#222222"
         readonly property color fg: "#dadada"
         readonly property color muted: "#747474"
         readonly property color accent: "#095c74"
@@ -16,8 +16,8 @@ Singleton {
     }
 
     readonly property QtObject bar: QtObject {
-        readonly property string fontFamily: "TerminessTTF Nerd Font Mono"
-        readonly property int height: 30
+        readonly property string fontFamily: "JetBrainsMono Nerd Font"
+        readonly property int height: 40
     }
 
     readonly property QtObject notifications: QtObject {
