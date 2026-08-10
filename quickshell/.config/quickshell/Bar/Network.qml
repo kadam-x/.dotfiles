@@ -8,6 +8,9 @@ Rectangle {
     property string netSsid: ""
     property int netStrength: 0
 
+    property bool open: false
+    signal clicked()
+
     color: "transparent"
     implicitWidth: netRow.implicitWidth + 14
     implicitHeight: 24
@@ -18,6 +21,7 @@ Rectangle {
         hoverEnabled: true
         onEntered: root.color = Qt.rgba(1, 1, 1, 0.06)
         onExited: root.color = "transparent"
+        onClicked: root.clicked()
     }
 
     Row {
@@ -30,7 +34,6 @@ Rectangle {
             width: 16
             height: 16
             anchors.verticalCenter: parent.verticalCenter
-            visible: root.netType !== "ethernet"
 
             property color strokeColor: Config.colors.fg
             property string netType: root.netType
@@ -49,6 +52,14 @@ Rectangle {
                 ctx.lineWidth = 1.3;
                 ctx.lineJoin = "round";
                 ctx.lineCap = "round";
+
+                if (netType === "ethernet") {
+                    ctx.strokeRect(2.5, 3, 11, 9);
+                    for (const p of [5, 8, 11]) {
+                        ctx.beginPath(); ctx.moveTo(p, 12); ctx.lineTo(p, 15); ctx.stroke();
+                    }
+                    return;
+                }
 
                 ctx.globalAlpha = netType === "none" ? 0.35 : 1.0;
                 ctx.beginPath();
@@ -84,7 +95,7 @@ Rectangle {
             font.pixelSize: 20
             font.bold: false
             text: root.netType === "wifi" ? (root.netSsid.length > 0 ? root.netSsid : "Wi-Fi")
-                : root.netType === "ethernet" ? "eth"
+                : root.netType === "ethernet" ? ""
                 : "Offline"
         }
     }

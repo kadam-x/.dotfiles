@@ -45,6 +45,7 @@ PanelWindow {
     property bool clockOpen: false
     property bool sysOpen: false
     property bool audioOpen: false
+    property bool netOpen: false
 
     RowLayout {
         anchors.fill: parent
@@ -86,9 +87,12 @@ PanelWindow {
             }
 
             Network {
+                id: netChip
                 netType: root.netType
                 netSsid: root.netSsid
                 netStrength: root.netStrength
+                open: root.netOpen
+                onClicked: root.netOpen = !root.netOpen
             }
 
             Audio {
@@ -118,7 +122,7 @@ PanelWindow {
             bottom: true
         }
         color: "transparent"
-        visible: root.clockOpen || root.sysOpen || root.audioOpen
+        visible: root.clockOpen || root.sysOpen || root.audioOpen || root.netOpen
         WlrLayershell.layer: WlrLayer.Overlay
         exclusiveZone: 0
 
@@ -128,6 +132,7 @@ PanelWindow {
                 root.clockOpen = false;
                 root.sysOpen = false;
                 root.audioOpen = false;
+                root.netOpen = false;
             }
         }
     }
@@ -156,6 +161,15 @@ PanelWindow {
         anchorChip: audioChip
         barWidth: root.width
         open: root.audioOpen
+    }
+
+    NetworkPopup {
+        anchorWindow: root
+        anchorChip: netChip
+        netType: root.netType
+        netSsid: root.netSsid
+        netStrength: root.netStrength
+        open: root.netOpen
     }
 
     Process {
