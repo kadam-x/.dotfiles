@@ -25,6 +25,9 @@ PanelWindow {
     property string netType: "none"
     property string netSsid: ""
     property int netStrength: 0
+    property bool hasWifi: false
+    property string wifiDev: ""
+    property string ethDev: ""
 
     property real cpuPct: 0
     property real ramPct: 0
@@ -169,6 +172,9 @@ PanelWindow {
         netType: root.netType
         netSsid: root.netSsid
         netStrength: root.netStrength
+        hasWifi: root.hasWifi
+        wifiDev: root.wifiDev
+        ethDev: root.ethDev
         open: root.netOpen
     }
 
@@ -285,23 +291,32 @@ PanelWindow {
 
     Process {
         id: netStatusProc
-        command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION", "device"]
+        command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION,DEVICE", "device"]
         stdout: StdioCollector {
             onStreamFinished: {
                 const lines = text.trim().split("\n");
-                let foundEthernet = false, foundWifi = false, ssid = "";
+                root.hasWifi = false;
+                let foundEthernet = false, foundWifi = false, ssid = "", wifiDev = "", ethDev = "";
                 for (const line of lines) {
                     const parts = line.split(":");
                     const type = parts[0], state = parts[1], conn = parts[2];
-                    if (type === "ethernet" && state === "connected")
+                    if (type === "ethernet" && state === "connected") {
                         foundEthernet = true;
-                    if (type === "wifi" && state === "connected") {
-                        foundWifi = true;
-                        ssid = conn || "";
+                        ethDev = parts[3] || "";
+                    }
+                    if (type === "wifi") {
+                        root.hasWifi = true;
+                        if (state === "connected") {
+                            foundWifi = true;
+                            ssid = conn || "";
+                        }
+                        if (parts[3]) wifiDev = parts[3];
                     }
                 }
                 root.netType = foundEthernet ? "ethernet" : (foundWifi ? "wifi" : "none");
                 root.netSsid = ssid;
+                root.wifiDev = wifiDev;
+                root.ethDev = ethDev;
                 if (foundWifi)
                     wifiStrengthProc.running = true;
             }
