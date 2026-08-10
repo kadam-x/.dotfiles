@@ -11,7 +11,7 @@ Row {
     property int fontSize: 20
     property bool fontBold: false
     property var switchWorkspace: function(num) {}
-    spacing: 6
+    spacing: 0
     Repeater {
         model: root.wsList
         delegate: Rectangle {
@@ -19,7 +19,7 @@ Row {
             required property var modelData
             readonly property bool isFocused: wsChip.modelData.focused
             width: wsRow.implicitWidth + 12
-            height: 40
+            height: Config.bar.height
             radius: 0
             color: wsChip.modelData.urgent ? "#ff5454"
                  : (wsChip.isFocused ? "#095c74"

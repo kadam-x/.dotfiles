@@ -17,7 +17,7 @@ Singleton {
 
     readonly property QtObject bar: QtObject {
         readonly property string fontFamily: "JetBrainsMono Nerd Font"
-        readonly property int height: 40
+        readonly property int height: 35
     }
 
     readonly property QtObject notifications: QtObject {
