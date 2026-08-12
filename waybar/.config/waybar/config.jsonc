@@ -14,6 +14,7 @@
         "interval": 1,
         "tooltip": true,
         "tooltip-format": "{calendar}",
+        "locale": "en_GB.UTF-8",
         "calendar": {
             "mode": "month",
             "on-scroll": 1,

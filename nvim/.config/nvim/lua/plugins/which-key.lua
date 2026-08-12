@@ -10,7 +10,7 @@ return {
 				{ "s", mode = "n" },
 			},
 			spec = {
-				{ "<leader>s", group = "Split", icon = "󰤼" },
+				{ "<leader>s", group = "Surround", icon = "" },
 				{ "<leader>fy", hidden = true },
 				{ "<leader>e", icon = "󰇥" },
 				{ "<leader>r", icon = "󰛔" },

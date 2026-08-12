@@ -50,12 +50,6 @@ vim.keymap.set("n", "<C-c>", ":nohl<CR>", { silent = true })
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
--- splits
-vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split vertically" })
-vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split horizontally" })
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Equal split size" })
-vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close split" })
-
 -- misc
 vim.keymap.set(
 	"n",
