@@ -20,7 +20,6 @@ alias ls="eza -1 --icons=auto"
 alias lt="eza --icons=auto --tree"
 alias sess='~/.local/bin/scripts/sessionizer.sh'
 alias cat='bat'
-alias vim='nvim'
 # Autocompletion - must be before plugins
 autoload -Uz compinit
 compinit
