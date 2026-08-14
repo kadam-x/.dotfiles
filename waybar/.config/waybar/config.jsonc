@@ -4,7 +4,7 @@
     "height": 20,
     "modules-left": ["sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["tray", "network", "battery", "clock"],
+    "modules-right": ["network", "battery", "clock", "tray"],
 
     "sway/workspaces": {
         "format": "{icon}"
