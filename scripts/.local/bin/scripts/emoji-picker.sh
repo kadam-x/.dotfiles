@@ -54,7 +54,7 @@ emojis="😀 grinning face
 ❌ cross mark
 ⚡ lightning bolt"
 
-chosen=$(printf '%s\n' "$emojis" | bemenu -i -p "emoji:" --fn "monospace 17" | cut -d' ' -f1)
+chosen=$(printf '%s\n' "$emojis" | bemenu -i -p "emoji:" | cut -d' ' -f1)
 
 if [ -n "$chosen" ]; then
     printf '%s' "$chosen" | wl-copy
