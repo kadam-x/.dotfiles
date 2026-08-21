@@ -22,17 +22,18 @@ edit = [
   { run = 'nvim "$@"', block = true, for = "unix" },
 ]
 image = [
-  { run = 'swayimg "$@"', orphan = true, for = "unix" },
+  { run = 'swayimg "$@" & ya emit quit', orphan = true, for = "unix" },
 ]
 play = [
-  { run = 'mpv "$@"', orphan = true, for = "unix" },
+  { run = 'mpv "$@" & ya emit quit', orphan = true, for = "unix" },
 ]
 pdf = [
-  { run = 'sioyek "$@"', orphan = true, for = "unix" },
+  { run = 'zathura "$@" & ya emit quit', orphan = true, for = "unix" },
 ]
 extract = [
   { run = 'unar -o "$(dirname "$1")" -q "$1"', block = true, for = "unix" },
 ]
+
 [open]
 rules = [
   { mime = "inode/directory",              use = [ "edit", "open", "reveal" ] },

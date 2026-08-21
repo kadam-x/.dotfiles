@@ -1,0 +1,38 @@
+# keymaps
+
+map h scroll left
+map l scroll right
+
+map j scroll half-down
+map k scroll half-up
+
+map gg goto top
+map G goto bottom
+
+map <C-d> scroll full-down
+map <C-u> scroll full-up
+
+map <C-=> zoom in # C-+ equivalent
+map <C--> zoom out
+
+map D toggle_page_mode
+
+map <F12> toggle_statusbar
+
+# style
+
+set page-h-padding 3
+set page-v-padding 3
+
+set recolor true
+set recolor-darkcolor "#d1d9eb"
+set recolor-lightcolor "#0d0e17"
+set default-bg "#151722"
+set statusbar-bg "#0d0e17"
+set statusbar-fg "#d1d9eb"
+set inputbar-bg "#0d0e17"
+set inputbar-fg "#d1d9eb"
+set notification-bg "#0d0e17"
+set notification-fg "#d1d9eb"
+set completion-bg "#0d0e17"
+set completion-fg "#d1d9eb"
