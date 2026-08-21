@@ -14,7 +14,7 @@ return {
 				lualine_a = { "mode" },
 				lualine_b = {
 					{ "branch", icon = "" },
-					{ "filename", symbols = { modified = " +", readonly = " -", unnamed = "" } },
+					{ symbols = { modified = " +", readonly = " -", unnamed = "" } },
 				},
 				lualine_c = {},
 				lualine_x = {

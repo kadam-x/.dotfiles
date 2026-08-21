@@ -106,7 +106,7 @@ return {
 				dirs = { vim.fn.expand("~/projects"), vim.fn.expand("~/work") },
 			})
 		end, { desc = "TODO list" })
-		vim.keymap.set("n", "X", function()
+		vim.keymap.set("n", "<C-x>", function()
 			Snacks.bufdelete()
 		end, { desc = "Delete Buffer" })
 	end,
