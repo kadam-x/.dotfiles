@@ -12,6 +12,7 @@
   "mini.nvim": { "branch": "main", "commit": "05a80b0340a92136a93ab04346cf97de3f165948" },
   "mini.pairs": { "branch": "main", "commit": "b1fd9df3bb4a41c8f45778a3859ee80ef6b367e3" },
   "mini.surround": { "branch": "main", "commit": "c30ec60393b256427512c6996a2b37d9cbcbb66a" },
+  "mini.tabline": { "branch": "main", "commit": "525b27e98de7cd2a6012d99f45b4fc10676e00e5" },
   "nvim-lspconfig": { "branch": "master", "commit": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1" },
   "nvim-numbertoggle": { "branch": "main", "commit": "704e098c7f056f0dae9407d8651edd3d183f3fff" },
   "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },

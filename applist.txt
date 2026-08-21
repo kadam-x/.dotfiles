@@ -32,3 +32,5 @@ docker
 docker-compose
 btop
 awww
+zathura
+zathura-pdf-mupdf
