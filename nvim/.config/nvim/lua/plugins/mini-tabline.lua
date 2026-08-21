@@ -20,7 +20,6 @@ return {
 		})
 
 		local function setup_tabline()
-			-- Background
 			vim.api.nvim_set_hl(0, "MiniTablineFill", {
 				bg = "NONE",
 				ctermbg = "NONE",
@@ -35,36 +34,35 @@ return {
 
 			vim.api.nvim_set_hl(0, "MiniTablineVisible", {
 				fg = "NONE",
-				bg = "NONE",
+				bg = "#14151f",
 				ctermfg = "NONE",
 				ctermbg = "NONE",
 			})
 
 			vim.api.nvim_set_hl(0, "MiniTablineHidden", {
 				fg = "NONE",
-				bg = "NONE",
+				bg = "#14151f",
 				ctermfg = "NONE",
 				ctermbg = "NONE",
 			})
 
-			-- Prevent Vim's base tabline groups from adding backgrounds
 			vim.api.nvim_set_hl(0, "TabLine", {
 				fg = "NONE",
-				bg = "NONE",
+				bg = "#14151f",
 				ctermfg = "NONE",
 				ctermbg = "NONE",
 			})
 
 			vim.api.nvim_set_hl(0, "TabLineFill", {
 				fg = "NONE",
-				bg = "NONE",
+				bg = "#14151f",
 				ctermfg = "NONE",
 				ctermbg = "NONE",
 			})
 
 			vim.api.nvim_set_hl(0, "TabLineSel", {
 				fg = "NONE",
-				bg = "NONE",
+				bg = "#52ab8f",
 				ctermfg = "NONE",
 				ctermbg = "NONE",
 			})
