@@ -1,8 +1,8 @@
 vim.opt.termguicolors = true
-vim.opt.showtabline = 3
+vim.opt.showtabline = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.showmode = false
+vim.opt.showmode = true
 vim.opt.laststatus = 3
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -35,4 +35,4 @@ vim.g.clipboard = {
 	paste = { ["+"] = "wl-paste --no-newline", ["*"] = "wl-paste --no-newline" },
 	cache_enabled = 1,
 }
-vim.o.showcmd = false
+vim.o.showcmd = true

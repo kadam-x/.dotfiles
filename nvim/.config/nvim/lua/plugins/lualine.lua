@@ -3,27 +3,39 @@ return {
 	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
+		local flat = { a = { fg = "#dadada" }, b = { fg = "#dadada" }, c = { fg = "#dadada" } }
+
 		require("lualine").setup({
 			options = {
-				theme = require("onyx.lualine"),
+				theme = {
+					normal = flat,
+					insert = flat,
+					visual = flat,
+					replace = flat,
+					command = flat,
+					inactive = flat,
+				},
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				globalstatus = true,
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = {
+					{
+						"filename",
+						path = 0,
+						symbols = { modified = " +", readonly = " -", unnamed = "" },
+					},
+				},
 				lualine_b = {
 					{ "branch", icon = "" },
-					{ symbols = { modified = " +", readonly = " -", unnamed = "" } },
 				},
 				lualine_c = {},
 				lualine_x = {
 					{
 						function()
 							if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
-								local devicons = require("nvim-web-devicons")
-								return devicons.get_icon(vim.fn.expand("%:t"), vim.bo.filetype, { default = true })
-									or ""
+								return vim.bo.filetype
 							end
 							return ""
 						end,

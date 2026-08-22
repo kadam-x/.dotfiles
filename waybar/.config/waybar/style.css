@@ -22,7 +22,7 @@ window#waybar {
   padding: 0 8px;
 }
 #workspaces button.focused {
-  background-color: #52ab8f;
+  background-color: #7abed3;
   color: rgba(255, 255, 255, 1);
   padding: 0 8px;
 }
