@@ -25,6 +25,7 @@ return {
 				{ "<leader>lg", hidden = true },
 				{ "<leader>lf", hidden = true },
 				{ "<leader>lH", hidden = true },
+				{ "<leader>un", hidden = true },
 			},
 		})
 	end,

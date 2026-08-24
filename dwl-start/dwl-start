@@ -1,0 +1,5 @@
+#!/bin/sh
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=dwl
+systemctl --user start xdg-desktop-portal xdg-desktop-portal-wlr
+
+exec slstatus -s | dwl -s "awww-daemon & mako --default-timeout 5000 & qbittorrent --no-splash"

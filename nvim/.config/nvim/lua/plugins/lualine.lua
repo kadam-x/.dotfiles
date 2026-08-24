@@ -34,10 +34,15 @@ return {
 				lualine_x = {
 					{
 						function()
-							if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
-								return vim.bo.filetype
+							local clients = vim.lsp.get_clients({ bufnr = 0 })
+							if #clients == 0 then
+								return ""
 							end
-							return ""
+							local names = {}
+							for _, c in ipairs(clients) do
+								table.insert(names, c.name)
+							end
+							return table.concat(names, ", ")
 						end,
 					},
 				},

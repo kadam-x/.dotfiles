@@ -1,9 +1,17 @@
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	keys = {
+		{
+			"<leader>c",
+			function()
+				require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 3000 })
+			end,
+			desc = "Format buffer",
+		},
+	},
 	config = function()
-		local conform = require("conform")
-		conform.setup({
+		require("conform").setup({
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
@@ -16,11 +24,6 @@ return {
 				cpp = { "clang_format" },
 				c = { "clang_format" },
 				rust = { "rustfmt" },
-			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 3000,
 			},
 		})
 	end,
