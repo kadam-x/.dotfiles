@@ -13,12 +13,13 @@ return {
 				enabled = true,
 				preset = {
 					header = [[
-       ██████╗███╗   ██╗███████╗███████╗██╗   ██╗██╗███╗   ███╗
-      ██╔════╝████╗  ██║██╔════╝╚══███╔╝██║   ██║██║████╗ ████║
-      ╚█████╗ ██╔██╗ ██║█████╗    ███╔╝ ██║   ██║██║██╔████╔██║
-       ╚═══██╗██║╚██╗██║██╔══╝   ███╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║
-      ██████╔╝██║ ╚████║███████╗███████╗ ╚████╔╝ ██║██║ ╚═╝ ██║
-      ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+██╗  ██╗ █████╗ ██████╗  █████╗ ███╗   ███╗ 
+██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗████╗ ████║
+█████╔╝ ███████║██║  ██║███████║██╔████╔██║
+██╔═██╗ ██╔══██║██║  ██║██╔══██║██║╚██╔╝██║
+██║  ██╗██║  ██║██████╔╝██║  ██║██║ ╚═╝ ██║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝
+				]],
 					keys = {
 						{
 							icon = " ",
@@ -62,7 +63,6 @@ return {
 				},
 			},
 		})
-
 		vim.keymap.set("n", "<leader>un", function()
 			Snacks.notifier.hide()
 		end, { desc = "Dismiss notifications" })
@@ -73,7 +73,7 @@ return {
 			)
 		end, { desc = "Toggle terminal" })
 		vim.keymap.set("n", "<tab>", function()
-			Snacks.picker.buffers()
+			Snacks.picker.buffers({ focus = "list" })
 		end, { desc = "Find Buffers" })
 		vim.keymap.set("n", "<leader>ff", function()
 			Snacks.picker.files()
@@ -107,6 +107,7 @@ return {
 				search = "TODO|NOTE",
 				live = false,
 				dirs = { vim.fn.expand("~/projects"), vim.fn.expand("~/work") },
+				focus = "list",
 			})
 		end, { desc = "TODO list" })
 		vim.keymap.set("n", "<C-x>", function()
