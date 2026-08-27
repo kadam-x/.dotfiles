@@ -1,7 +1,0 @@
-[services.my-server]
-type     = "sftp"
-host     = "192.168.1.69"
-user     = "kadamx"
-port     = 22
-identity = "~/.ssh/id_ed25519"
-password = "1234"
