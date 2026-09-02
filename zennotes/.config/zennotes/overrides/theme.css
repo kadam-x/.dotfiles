@@ -1,0 +1,31 @@
+/* 1. Recolor variables using ZenNotes space-separated RGB triplets */
+:root[data-theme-mode="dark"] {
+  --z-bg: 25 29 31;         /* Main editor (#191d1f) */
+  --z-bg-softer: 18 22 24;  /* Sidebar & Ribbon (#121618) */
+  --z-bg-1: 18 22 24;       /* Modals & Pickers (#121618) */
+}
+
+/* 2. Target ZenNotes DOM directly (Example inspection selectors) */
+/* Hide UI elements */
+.zn-ribbon,
+.zn-sidebar-toggle,
+.zn-status-bar {
+  display: none !important;
+}
+
+/* Typography & Tree styling */
+.zn-file-tree .zn-folder-title {
+  font-weight: 600;
+  color: rgb(var(--z-fg-1));
+}
+
+.zn-file-tree .zn-file-title {
+  font-weight: 400;
+  color: rgb(var(--z-grey-1));
+}
+
+.zn-file-tree .zn-folder-children {
+  border-left: 1px solid rgb(var(--z-bg-4));
+  margin-left: 8px;
+  padding-left: 4px;
+}

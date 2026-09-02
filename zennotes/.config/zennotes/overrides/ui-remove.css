@@ -1,0 +1,62 @@
+/* ==========================================================================
+   1. Window & Main Frame
+   ========================================================================== */
+
+/* Hide top titlebar and drag region */
+.drag-region.glass-titlebar {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   2. Sidebar Controls
+   ========================================================================== */
+
+/* Hide search bar and top action controls */
+aside.glass-sidebar > div.flex.items-center.justify-between,
+aside.glass-sidebar > div.flex.flex-wrap.items-center {
+  display: none !important;
+}
+
+/* Remove spacing at the top of the file tree list */
+.zn-sidebar-scroll {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Hide sidebar bottom footer */
+.zn-sidebar-footer-safe {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   3. Editor Header & Workspace Controls
+   ========================================================================== */
+
+/* Hide Edit / Split / Preview mode buttons */
+header.glass-header button[aria-label^="Editor mode"],
+header.glass-header button[aria-label^="Split mode"],
+header.glass-header button[aria-label^="Preview mode"] {
+  display: none !important;
+}
+
+/* Hide mode switcher background container */
+header.glass-header div.bg-paper-200\/70 {
+  display: none !important;
+}
+
+/* Hide vertical divider line in header */
+header.glass-header div.mx-2.h-4.w-px {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   4. Status & Footer Bars
+   ========================================================================== */
+
+/* Hide main editor status bar */
+section > div.flex.h-8.shrink-0.items-center.justify-between {
+  display: none !important;
+}

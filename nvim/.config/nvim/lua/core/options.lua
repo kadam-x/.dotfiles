@@ -29,10 +29,24 @@ vim.o.foldmethod = "manual"
 vim.o.foldlevel = 99
 vim.o.foldcolumn = "0"
 vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = {
-	name = "wl-clipboard",
-	copy = { ["+"] = "wl-copy --trim-newline", ["*"] = "wl-copy --trim-newline" },
-	paste = { ["+"] = "wl-paste --no-newline", ["*"] = "wl-paste --no-newline" },
-	cache_enabled = 1,
-}
+if vim.env.SSH_TTY then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
+else
+  vim.g.clipboard = {
+    name = "wl-clipboard",
+    copy = { ["+"] = "wl-copy --trim-newline", ["*"] = "wl-copy --trim-newline" },
+    paste = { ["+"] = "wl-paste --no-newline", ["*"] = "wl-paste --no-newline" },
+    cache_enabled = 1,
+  }
+end
 vim.o.showcmd = true
