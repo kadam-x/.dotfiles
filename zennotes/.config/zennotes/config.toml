@@ -20,7 +20,7 @@ block_ime_in_normal_mode = true  # keep the OS input method (a CJK IME) from com
 wrapped_line_motions = "display"  # display | logical — how $, I, A and dependent operators treat soft-wrapped lines
 which_key_hints = true  # show the leader-key hint overlay (Vim only)
 which_key_hint_mode = "sticky"  # timed | sticky
-which_key_hint_timeout_ms = 900  # how long timed hints stay visible (ms)
+which_key_hint_timeout_ms = 3000  # how long timed hints stay visible (ms)
 
 [search]
 backend = "auto"  # auto | builtin | ripgrep | fzf
@@ -98,13 +98,17 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # Binding syntax: "Mod+P" = Cmd/Ctrl+P, "Shift+Mod+K", "Ctrl+W", "Space",
 # or a two-key sequence like "g g". Uncomment a reference line to remap it.
 [keymaps]
+"global.searchNotes" = "Shift+Mod+F"
+"global.toggleSidebar" = "Mod+["
+"global.focusPaneLeft" = "Mod+H"
+"global.focusPaneDown" = "Mod+J"
+"global.focusPaneUp" = "Mod+K"
+"global.focusPaneRight" = "Mod+L"
 "vim.tabPrevious" = "Ctrl+I"
 "vim.tabNext" = "Ctrl+O"
-"global.toggleSidebar" = "Mod+["
 
 # --- All actions (defaults shown; uncomment + edit to override) ---
 # Global
-# "global.searchNotes" = "Mod+P"  # Search notes
 # "global.searchNotesNonVim" = "Mod+F"  # Search notes in non-Vim mode
 # "global.commandPalette" = "Shift+Mod+P"  # Open command palette
 # "global.newQuickNote" = "Shift+Mod+N"  # New quick note
@@ -115,10 +119,6 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "global.toggleOutlinePanel" = "Mod+3"  # Toggle outline panel
 # "global.toggleCommentsPanel" = "Shift+Mod+C"  # Toggle comments panel
 # "global.addComment" = "Alt+Mod+M"  # Add comment to selection
-# "global.focusPaneLeft" = "Alt+H"  # Focus pane left
-# "global.focusPaneDown" = "Alt+J"  # Focus pane down
-# "global.focusPaneUp" = "Alt+K"  # Focus pane up
-# "global.focusPaneRight" = "Alt+L"  # Focus pane right
 # "global.modeEdit" = "Mod+4"  # Switch to editor mode
 # "global.modeSplit" = "Mod+5"  # Switch to split mode
 # "global.modePreview" = "Mod+6"  # Switch to preview mode
@@ -226,8 +226,8 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # Enabled CSS overrides — list the filenames you want active.
 # Example: "focus.css" = "on"
 [overrides]
-"ui-remove.css" = "on"
 "theme.css" = "on"
+"ui-remove.css" = "on"
 
 # Visual color tweaks from Settings → Appearance (token slug = color).
 # Example: "accent" = "#ff3b30"

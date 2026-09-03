@@ -26,9 +26,7 @@ vim.keymap.set("n", "P", function()
 end, { desc = "Paste as new line without affecting current" })
 
 -- selection
-vim.keymap.set("n", "V", "ggVG", { desc = "Select all" })
-vim.keymap.set("n", "x", "V", { desc = "Select line (Helix style)" })
-vim.keymap.set("v", "x", "j", { desc = "Extend selection (Helix)" })
+vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 
 -- editing
 vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr>", { desc = "Save file" })
