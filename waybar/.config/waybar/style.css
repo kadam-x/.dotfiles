@@ -17,24 +17,29 @@ window#waybar {
 
 #tags button {
     padding: 0 10px;
-    background: #1c1c24;
-    border-top: 3px solid transparent;
+    background-color: #1c1c24;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 0% 3px;
 }
 
 #tags button.occupied {
-    border-top-color: #6e94b2;
+    background-image: linear-gradient(#6e94b2, #6e94b2);
+    background-size: 90% 3px;
 }
 
 #tags button.focused {
-    background: #6e94b2;
+    background-color: #6e94b2;
     color: #ffffff;
-    border-top-color: #ffffff;
+    background-image: linear-gradient(#ffffff, #ffffff);
+    background-size: 90% 3px;
 }
 
 #tags button.urgent {
-    background: #770000;
+    background-color: #770000;
     color: #ffffff;
-    border-top-color: #770000;
+    background-image: linear-gradient(#770000, #770000);
+    background-size: 90% 3px;
 }
 
 #clock,
