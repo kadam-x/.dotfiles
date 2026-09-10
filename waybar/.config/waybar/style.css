@@ -18,52 +18,44 @@ window#waybar {
 #tags button {
     padding: 0 10px;
     background: #1c1c24;
-    color: #444444;
-    border-radius: 0;
+    border-top: 3px solid transparent;
 }
 
 #tags button.occupied {
-    background: #1c1c24;
-    color: #bbbbbb;
+    border-top-color: #6e94b2;
 }
 
 #tags button.focused {
     background: #6e94b2;
     color: #ffffff;
+    border-top-color: #ffffff;
 }
 
 #tags button.urgent {
     background: #770000;
     color: #ffffff;
-}
-
-#tags button:hover {
-    background: #252530;
-    color: #bbbbbb;
+    border-top-color: #770000;
 }
 
 #clock,
-#tray {
+#tray,
+tooltip label {
     padding: 0 10px;
-    color: #bbbbbb;
 }
 
 tooltip label {
-    color: #bbbbbb;
     padding: 6px;
 }
 
-#tray > .passive {
+#tray > .passive,
+#tray > .needs-attention {
     -gtk-icon-effect: none;
 }
 
 #tray > .needs-attention {
     background: #6e94b2;
-    -gtk-icon-effect: none;
 }
 
 #tray menu {
     background: #1c1c24;
-    color: #bbbbbb;
-    border-radius: 0;
 }
