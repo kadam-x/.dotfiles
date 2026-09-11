@@ -57,8 +57,14 @@ diverged = "[󰄿$ahead_count󰄼$behind_count](bold)"
 
 [hostname]
 ssh_only = true
-format = "󰖟[$hostname]($style) "
+format = "@[$hostname]($style) "
 style = "bold"
+
+[username]
+show_always = false
+style_user = "bold"
+style_root = "bold red"
+format = "[$user]($style)"
 
 [cmd_duration]
 min_time = 2000
