@@ -7,7 +7,6 @@ riverctl rule-add -app-id '*' ssd
 
 riverctl rule-add -app-id "wiremix" float
 riverctl rule-add -app-id "yazi" float
-riverctl rule-add -app-id "pulsemixer" float
 riverctl rule-add -app-id "org.qbittorrent.qBittorrent" float
 riverctl rule-add -app-id "swayimg" float
 
@@ -19,8 +18,7 @@ BEMENU_OPTS='-l 10 --fn "monospace 16" --nb "#1c1c24" --fb "#1c1c24" --tb "#1c1c
 
 riverctl map normal Super Return spawn foot
 riverctl map normal Super A spawn "bemenu-run $BEMENU_OPTS"
-riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1400x1200 -e yazi"
-riverctl map normal Super V spawn "foot --app-id pulsemixer --window-size-pixels 800x600 -e pulsemixer"
+riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1000x600 -e yazi"
 riverctl map normal Super U spawn "hyprpicker -a"
 riverctl map normal Super+Shift S spawn "sh -c 'grim -g \"\$(slurp)\" - | tee ~/Pictures/Screenshots/screenshot_\$(date +%Y%m%d_%H%M%S).png | wl-copy'"
 

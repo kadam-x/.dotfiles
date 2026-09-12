@@ -6,7 +6,7 @@
 
     "modules-left": ["river/tags"],
     "modules-center": [],
-    "modules-right": ["network", "tray", "clock"],
+    "modules-right": ["network", "tray", "pulseaudio", "clock"],
 
     "river/tags": {
         "num-tags": 9,
@@ -19,6 +19,16 @@
         "format-disconnected": "",
         "format-ethernet": "",
         "tooltip-format-wifi": "{ifname} via {gwaddr}"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "foot --app-id pulsemixer -e pulsemixer",
+        "scroll-step": 5
     },
 
     "clock": {
