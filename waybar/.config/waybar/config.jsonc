@@ -6,7 +6,7 @@
 
     "modules-left": ["river/tags"],
     "modules-center": [],
-    "modules-right": ["network", "tray", "pulseaudio", "clock"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "tray", "clock"],
 
     "river/tags": {
         "num-tags": 9,
@@ -21,6 +21,14 @@
         "tooltip-format-wifi": "{ifname} via {gwaddr}"
     },
 
+    "bluetooth": {
+        "format-on": "",
+        "format-off": "",
+        "format-connected": "󰂱",
+        "tooltip-format-connected": "{device_alias}",
+        "on-click": "blueman-manager"
+    },
+
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-muted": "󰝟",
@@ -29,6 +37,19 @@
         },
         "on-click": "foot --app-id pulsemixer -e pulsemixer",
         "scroll-step": 5
+    },
+
+    "battery": {
+        "format": "{icon}",
+        "format-icons": {
+            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        },
+        "tooltip-format": "{capacity}% ({time})",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
     },
 
     "clock": {

@@ -18,7 +18,7 @@ BEMENU_OPTS='-l 10 --fn "monospace 16" --nb "#1c1c24" --fb "#1c1c24" --tb "#1c1c
 
 riverctl map normal Super Return spawn foot
 riverctl map normal Super A spawn "bemenu-run $BEMENU_OPTS"
-riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1000x600 -e yazi"
+riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1200x800 -e yazi"
 riverctl map normal Super U spawn "hyprpicker -a"
 riverctl map normal Super+Shift S spawn "sh -c 'grim -g \"\$(slurp)\" - | tee ~/Pictures/Screenshots/screenshot_\$(date +%Y%m%d_%H%M%S).png | wl-copy'"
 
