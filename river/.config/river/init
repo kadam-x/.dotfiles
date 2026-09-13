@@ -70,7 +70,6 @@ systemctl --user start pipewire pipewire-pulse xdg-desktop-portal xdg-desktop-po
 waybar &
 mako --default-timeout 5000 &
 awww-daemon &
-awww img ~/Pictures/wallpapers/lucy.jpg &
 wl-paste --type text --watch cliphist store &
 wl-paste --type image --watch cliphist store &
 
