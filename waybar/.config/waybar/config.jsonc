@@ -15,10 +15,12 @@
 
     "network": {
         "interface": "wl*",
-        "format-wifi": "{essid} ({signalStrength}%)",
-        "format-disconnected": "",
-        "format-ethernet": "",
-        "tooltip-format-wifi": "{ifname} via {gwaddr}"
+        "format-wifi": "󰤨",
+        "format-disconnected": "󰤭",
+        "format-ethernet": "󰈀",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-disconnected": "Disconnected",
+        "tooltip-format-ethernet": "{ifname} via {gwaddr}"
     },
 
     "bluetooth": {
@@ -35,8 +37,7 @@
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "on-click": "foot --app-id pulsemixer -e pulsemixer",
-        "scroll-step": 5
+        "scroll-step": 1
     },
 
     "battery": {
