@@ -14,19 +14,19 @@
     },
 
     "network": {
-        "interface": "wl*",
         "format-wifi": "{icon}",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "format-disconnected": "󰤭",
         "format-ethernet": "󰈀",
+        "format-disconnected": "󰤭",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "tooltip-format-disconnected": "Disconnected",
-        "tooltip-format-ethernet": "{ifname} via {gwaddr}"
+        "tooltip-format-ethernet": "{ifname} via {gwaddr}",
+        "tooltip-format-disconnected": "Disconnected"
     },
 
     "bluetooth": {
         "format-on": "",
         "format-off": "",
+        "format-no-controller": "",
         "format-connected": "󰂱",
         "tooltip-format-connected": "{device_alias}",
         "on-click": "blueman-manager"
