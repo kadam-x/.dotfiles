@@ -15,7 +15,8 @@
 
     "network": {
         "interface": "wl*",
-        "format-wifi": "󰤨",
+        "format-wifi": "{icon}",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "format-disconnected": "󰤭",
         "format-ethernet": "󰈀",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
