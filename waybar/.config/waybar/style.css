@@ -24,12 +24,12 @@ window#waybar {
 }
 
 #tags button.occupied {
-    background-image: linear-gradient(#797979, #797979);
+    background-image: linear-gradient(#003f8e, #003f8e);
     background-size: 90% 3px;
 }
 
 #tags button.focused {
-    background-color: #797979;
+    background-color: #003f8e;
     color: #ffffff;
     background-image: linear-gradient(#ffffff, #ffffff);
     background-size: 90% 3px;
@@ -62,7 +62,7 @@ tooltip label {
 }
 
 #tray > .needs-attention {
-    background: #797979;
+    background: #003f8e;
 }
 
 #tray menu {
