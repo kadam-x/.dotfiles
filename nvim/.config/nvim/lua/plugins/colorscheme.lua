@@ -1,9 +1,12 @@
 return {
 	{
-		"laz4rd/sugarplum.nvim",
+		"gnfisher/tomorrow-night-blue.nvim",
+		lazy = false,
+		priority = 1000,
 		config = function()
-			require("sugarplum").setup()
-			vim.cmd.colorscheme("sugarplum")
+			require("tomorrow-night-blue").setup({
+			})
+			vim.cmd.colorscheme("tomorrow-night-blue")
 		end,
 	},
 }
