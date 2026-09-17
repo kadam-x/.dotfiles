@@ -1,12 +1,11 @@
 return {
 	{
-		"gnfisher/tomorrow-night-blue.nvim",
+		"kadam-x/onyx-colorscheme",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("tomorrow-night-blue").setup({
-			})
-			vim.cmd.colorscheme("tomorrow-night-blue")
+			vim.opt.termguicolors = true
+			vim.cmd([[colorscheme onyx]])
 		end,
 	},
 }

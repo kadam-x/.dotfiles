@@ -11,25 +11,25 @@
 }
 
 window#waybar {
-    background: #02021a;
+    background: #0f0d2b;
     color: #bbbbbb;
 }
 
 #tags button {
     padding: 0 10px;
-    background-color: #02021a;
+    background-color: #0f0d2b;
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 0% 3px;
 }
 
 #tags button.occupied {
-    background-image: linear-gradient(#003f8e, #003f8e);
+    background-image: linear-gradient(#6e94b2, #6e94b2);
     background-size: 90% 3px;
 }
 
 #tags button.focused {
-    background-color: #003f8e;
+    background-color: #6e94b2;
     color: #ffffff;
     background-image: linear-gradient(#ffffff, #ffffff);
     background-size: 90% 3px;
@@ -62,9 +62,9 @@ tooltip label {
 }
 
 #tray > .needs-attention {
-    background: #003f8e;
+    background: #6e94b2;
 }
 
 #tray menu {
-    background: #02021a;
+    background: #0f0d2b;
 }
