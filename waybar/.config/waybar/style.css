@@ -11,13 +11,13 @@
 }
 
 window#waybar {
-    background: #0f0d2b;
+    background: #0d0e17;
     color: #bbbbbb;
 }
 
 #tags button {
     padding: 0 10px;
-    background-color: #0f0d2b;
+    background-color: #0d0e17;
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 0% 3px;
@@ -66,5 +66,5 @@ tooltip label {
 }
 
 #tray menu {
-    background: #0f0d2b;
+    background: #0d0e17;
 }
