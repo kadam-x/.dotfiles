@@ -1,11 +1,9 @@
 return {
 	{
-		"kadam-x/onyx-colorscheme",
-		lazy = false,
-		priority = 1000,
+		"laz4rd/sugarplum.nvim",
 		config = function()
-			vim.opt.termguicolors = true
-			vim.cmd([[colorscheme onyx]])
+			require("sugarplum").setup()
+			vim.cmd.colorscheme("sugarplum")
 		end,
 	},
 }
