@@ -10,7 +10,7 @@ riverctl rule-add -app-id "yazi" float
 riverctl rule-add -app-id "org.qbittorrent.qBittorrent" float
 riverctl rule-add -app-id "swayimg" float
 
-riverctl border-width 3
+riverctl border-width 1
 riverctl border-color-focused 0x5ca8dcff
 riverctl border-color-unfocused 0x1c1c24ff
 
