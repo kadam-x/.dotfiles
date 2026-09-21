@@ -1,11 +1,8 @@
 return {
-	{
-		"kadam-x/onyx-colorscheme",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.opt.termguicolors = true
-			vim.cmd([[colorscheme onyx]])
-		end,
-	},
+	"vague26/vague.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		vim.cmd.colorscheme("vague")
+	end,
 }
