@@ -1,8 +1,9 @@
 return {
-	"vague26/vague.nvim",
+	"kyazdani42/blue-moon",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		vim.cmd.colorscheme("vague")
+		vim.opt.termguicolors = true
+		vim.cmd("colorscheme blue-moon")
 	end,
 }

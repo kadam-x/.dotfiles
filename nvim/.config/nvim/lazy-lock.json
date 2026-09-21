@@ -1,6 +1,6 @@
 {
-  "aurora": { "branch": "master", "commit": "c3879c696ba7298e35b01ec612aa32523b152778" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
+  "blue-moon": { "branch": "master", "commit": "ed4ed60abeb8491d02090cea6ae2dd80046c28fc" },
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },
   "hop.nvim": { "branch": "master", "commit": "6e83486f351066e38c3ae9daad2a4f01dfb262ad" },

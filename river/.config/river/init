@@ -11,10 +11,10 @@ riverctl rule-add -app-id "org.qbittorrent.qBittorrent" float
 riverctl rule-add -app-id "swayimg" float
 
 riverctl border-width 1
-riverctl border-color-focused 0x6e94b2ff
+riverctl border-color-focused 0x959dcbff
 riverctl border-color-unfocused 0x1c1c24ff
 
-BEMENU_OPTS='-l 10 --fn "monospace 16" --nb "#0d0e17" --fb "#0d0e17" --tb "#0d0e17" --ab "#0d0e17" --hb "#6e94b2" --sb "#6e94b2" --scb "#6e94b2" --tf "#6e94b2" --hf "#252530"'
+BEMENU_OPTS='-l 10 --fn "monospace 16" --nb "#0d0e17" --fb "#0d0e17" --tb "#0d0e17" --ab "#0d0e17" --hb "#959dcb" --sb "#959dcb" --scb "#959dcb" --tf "#959dcb" --hf "#252530"'
 
 riverctl map normal Super Return spawn foot
 riverctl map normal Super A spawn "bemenu-run $BEMENU_OPTS"
