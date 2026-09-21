@@ -4,6 +4,8 @@ riverctl default-attach-mode bottom
 
 riverctl csd-preference server
 riverctl rule-add -app-id '*' ssd
+riverctl spawn "env GTK_CSD=0"
+riverctl csd-filter-add app-id "*"
 
 riverctl rule-add -app-id "wiremix" float
 riverctl rule-add -app-id "yazi" float
