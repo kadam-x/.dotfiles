@@ -1,9 +1,13 @@
 return {
-	"kyazdani42/blue-moon",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		vim.opt.termguicolors = true
-		vim.cmd("colorscheme blue-moon")
-	end,
+    "kyazdani42/blue-moon",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        vim.cmd.colorscheme("blue-moon")
+
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+    end,
 }
+

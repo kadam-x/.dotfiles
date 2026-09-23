@@ -1,6 +1,6 @@
 add_newline = false
-format = "$directory$git_branch$git_status$character"
-right_format = "$python$nodejs$cpp$rust$cmd_duration$hostname$username"
+format = "$hostname$directory$git_branch$git_status$character"
+right_format = "$python$nodejs$cpp$rust$cmd_duration$username"
 
 [character]
 vicmd_symbol = "[N](bold) >>>"
@@ -40,14 +40,15 @@ format = "[$symbol$version]($style) "
 style = "bold"
 
 [git_branch]
-symbol = "git:"
+symbol = ""
 style = "bold #444444"
-format = "[$symbol$branch]($style)"
+format = "[$branch]($style)"
 
 [git_status]
-style = "bold #444444"
-untracked = ""
+style = "bold"
+format = "[$all_status$ahead_behind]($style)"
 modified = "[!$count](bold yellow)"
+untracked = ""
 staged = "[+$count](bold green)"
 renamed = "[󰄾$count](bold)"
 deleted = "[-$count](bold red)"
@@ -56,8 +57,8 @@ behind = "[󰄼$count](bold)"
 diverged = "[󰄿$ahead_count󰄼$behind_count](bold)"
 
 [hostname]
-ssh_only = true
-format = "@[$hostname]($style) "
+ssh_only = false
+format = "[$hostname]($style) "
 style = "bold"
 
 [username]
