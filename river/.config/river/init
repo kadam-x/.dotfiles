@@ -16,16 +16,15 @@ riverctl border-width 1
 riverctl border-color-focused 0x6e94b2ff
 riverctl border-color-unfocused 0x1c1c24ff
 
-BEMENU_OPTS='-l 10 --fn "monospace 16" --nb "#0d0e17" --fb "#0d0e17" --tb "#0d0e17" --ab "#0d0e17" --hb "#959dcb" --sb "#959dcb" --scb "#959dcb" --tf "#959dcb" --hf "#252530"'
-
 riverctl map normal Super Return spawn foot
-riverctl map normal Super A spawn "bemenu-run $BEMENU_OPTS"
+riverctl map normal Super A spawn "sh -c 'tofi-drun | sh'"
 riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1200x800 -e yazi"
 riverctl map normal Super U spawn "hyprpicker -a"
 riverctl map normal Super+Shift S spawn "sh -c 'grim -g \"\$(slurp)\" - | tee ~/Pictures/Screenshots/screenshot_\$(date +%Y%m%d_%H%M%S).png | wl-copy'"
 
-riverctl map normal Super Period spawn "env BEMENU_OPTS='$BEMENU_OPTS' bash ~/.local/bin/scripts/emoji-picker.sh"
-riverctl map normal Super W spawn "env BEMENU_OPTS='$BEMENU_OPTS' bash ~/.local/bin/scripts/wallpaper-picker.sh"
+# riverctl map normal Super Period spawn "bash ~/.local/bin/scripts/emoji-picker.sh"
+riverctl map normal Super Period spawn "BEMOJI_PICKER_CMD='tofi --prompt-text emoji:' bemoji -t"
+riverctl map normal Super W spawn "bash ~/.local/bin/scripts/wallpaper-picker.sh"
 
 riverctl map normal None XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
 riverctl map normal None XF86AudioLowerVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"

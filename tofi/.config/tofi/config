@@ -1,0 +1,34 @@
+# Font & Sizing
+font = monospace
+font-size = 16
+
+# Window Layout (Floating Box)
+horizontal = false
+num-results = 10
+width = 600
+height = 400
+anchor = center
+
+# Styling & Colors
+border-width = 2
+border-color = #6e94b2
+outline-width = 0
+background-color = #0d0e17
+text-color = #959dcb
+
+# Selection Colors
+selection-color = #252530
+selection-background = #959dcb
+selection-background-padding = 2, 4
+
+# Padding & Spacing
+padding-top = 20
+padding-bottom = 20
+padding-left = 20
+padding-right = 20
+result-spacing = 10
+
+# Interface Elements
+prompt-text = "run: "
+prompt-color = #959dcb
+input-color = #959dcb
