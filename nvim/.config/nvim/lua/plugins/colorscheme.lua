@@ -1,8 +1,8 @@
 return {
-	"vague26/vague.nvim",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		vim.cmd.colorscheme("vague")
-	end,
+    "habamax.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function ()
+        vim.cmd.colorscheme("habamax.nvim")
+    end,
 }
