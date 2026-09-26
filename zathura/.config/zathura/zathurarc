@@ -26,8 +26,8 @@ set page-v-padding 3
 
 set recolor true
 set recolor-darkcolor "#d1d9eb"
-set recolor-lightcolor "#1c1c24"
-set default-bg "#1c1c24"
+set recolor-lightcolor "#141414"
+set default-bg "#141414"
 set statusbar-bg "#121618"
 set statusbar-fg "#d1d9eb"
 set inputbar-bg "#121618"
