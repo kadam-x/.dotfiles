@@ -17,11 +17,12 @@ riverctl border-color-focused 0x6e94b2ff
 riverctl border-color-unfocused 0x1c1c24ff
 
 riverctl map normal Super Return spawn foot
-riverctl map normal Super A spawn "sh -c 'tofi-drun | sh'"
+riverctl map normal Super A spawn "rofi -show drun"
 riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1200x800 -e yazi"
 riverctl map normal Super U spawn "hyprpicker -a"
 riverctl map normal Super+Shift S spawn "sh -c 'grim -g \"\$(slurp)\" - | tee ~/Pictures/Screenshots/screenshot_\$(date +%Y%m%d_%H%M%S).png | wl-copy'"
 
+riverctl map normal Super Period spawn "rofi -show emoji -emoji-mode copy"
 riverctl map normal Super W spawn "bash ~/.local/bin/scripts/wallpaper-picker.sh"
 
 riverctl map normal None XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"

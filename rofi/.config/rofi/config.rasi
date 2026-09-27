@@ -1,0 +1,71 @@
+configuration {
+    modi: "drun,run";
+    font: "monospace 16";
+    show-icons: false;
+    terminal: "foot";
+    drun-display-format: "{name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "run: ";
+    display-emoji: "emoji: ";
+}
+
+@theme "/dev/null"
+
+* {
+    bg: #0d0e17;
+    fg: #959dcb;
+    accent: #252530;
+    border-color: #6e94b2;
+    
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+    background-color: @bg;
+    border: 2px;
+    border-color: @border-color;
+    border-radius: 0px;
+    width: 600px;
+    padding: 20px;
+}
+
+prompt {
+    enabled: true;
+    padding: 0px 5px 0px 0px;
+    text-color: @fg;
+}
+
+entry {
+    placeholder: "";
+    text-color: @fg;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    padding: 0px 0px 10px 0px;
+}
+
+listview {
+    border: 0px;
+    lines: 10;
+    spacing: 5px;
+    scrollbar: false;
+}
+
+element {
+    padding: 5px;
+    border-radius: 0px;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @fg;
+}
+
+element-text {
+    text-color: inherit;
+}
