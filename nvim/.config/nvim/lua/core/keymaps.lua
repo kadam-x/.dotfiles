@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.keymap.set('i', '<Esc>', '<Nop>')
 
 local opts = { noremap = true, silent = true }
 
