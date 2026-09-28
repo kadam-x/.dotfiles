@@ -1,8 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.keymap.set('n', "'", '<Nop>', { noremap = true, silent = true })
 
 local opts = { noremap = true, silent = true }
+
+-- disable trackpad scrolling
+vim.keymap.set({ "n", "v", "i" }, "<Up>", "<Nop>")
+vim.keymap.set({ "n", "v", "i" }, "<Down>", "<Nop>")
 
 -- disable popups
 vim.keymap.set("n", "q:", "<nop>")
