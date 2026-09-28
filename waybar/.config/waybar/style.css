@@ -1,3 +1,10 @@
+@define-color bg      #1a1b26;
+@define-color fg      #bcbdc8;
+@define-color accent  #84aafc;
+@define-color active  #4497a9;
+@define-color urgent  #770000;
+@define-color white   #ffffff;
+
 * {
     font-family: JetBrainsMono Nerd Font;
     font-size: 20px;
@@ -10,61 +17,50 @@
     animation: none;
 }
 
-window#waybar {
-    background: #0d0e17;
-    color: #bbbbbb;
+window#waybar,
+#tray menu {
+    background: @bg;
+    color: @fg;
 }
 
+/* tags */
 #tags button {
-    padding: 0 10px;
-    background-color: #0d0e17;
+    padding: 0 11px;
     background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 0% 3px;
+    background-position: 80% 3px;
+    background-size: 5px 5px;
 }
-
 #tags button.occupied {
-    background-image: linear-gradient(#6e94b2, #6e94b2);
-    background-size: 90% 3px;
+    background-image: linear-gradient(@fg, @fg);
 }
-
 #tags button.focused {
-    background-color: #6e94b2;
-    color: #ffffff;
-    background-image: linear-gradient(#ffffff, #ffffff);
-    background-size: 90% 3px;
+    color: @bg;
+    background-color: @accent;
 }
-
+#tags button.focused.occupied {
+    background-image: linear-gradient(@bg, @bg);
+}
 #tags button.urgent {
-    background-color: #770000;
-    color: #ffffff;
-    background-image: linear-gradient(#770000, #770000);
-    background-size: 90% 3px;
+    color: @bg;
+    background-color: @fg;
+}
+#tags button.urgent.occupied {
+    background-image: linear-gradient(@bg, @bg);
 }
 
-#clock,
-#tray,
-#network,
-#bluetooth,
-#pulseaudio,
-#battery,
-tooltip label {
+/* modules */
+#clock, #tray, #network, #bluetooth, #pulseaudio, #battery {
     padding: 0 10px;
 }
-
 tooltip label {
     padding: 6px;
 }
 
+/* tray */
 #tray > .passive,
 #tray > .needs-attention {
     -gtk-icon-effect: none;
 }
-
 #tray > .needs-attention {
-    background: #6e94b2;
-}
-
-#tray menu {
-    background: #0d0e17;
+    background: @accent;
 }

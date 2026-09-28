@@ -13,7 +13,7 @@ riverctl rule-add -app-id "org.qbittorrent.qBittorrent" float
 riverctl rule-add -app-id "swayimg" float
 
 riverctl border-width 1
-riverctl border-color-focused 0x6e94b2ff
+riverctl border-color-focused 0x84aafcff
 riverctl border-color-unfocused 0x1c1c24ff
 
 riverctl map normal Super Return spawn foot
