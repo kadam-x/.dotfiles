@@ -22,7 +22,7 @@ edit = [
   { run = 'nvim %s', block = false, for = "unix" },
 ]
 image = [
-  { run = 'swayimg %s & ya emit quit', orphan = true, for = "unix" },
+  { run = 'mpv --image-display-duration=inf --no-osc %s & ya emit quit', orphan = true, for = "unix" },
 ]
 play = [
   { run = 'mpv %s & ya emit quit', orphan = true, for = "unix" },
