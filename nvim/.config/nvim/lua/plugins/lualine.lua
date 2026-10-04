@@ -20,32 +20,20 @@ return {
 				globalstatus = true,
 			},
 			sections = {
-				lualine_a = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {
 					{
-						"filename",
-						path = 0,
-						symbols = { modified = " +", readonly = " -", unnamed = "" },
-					},
-				},
-				lualine_b = {
-					{ "branch", icon = "" },
-				},
-				lualine_c = {},
-				lualine_x = {
-					{
-						function()
-							local clients = vim.lsp.get_clients({ bufnr = 0 })
-							if #clients == 0 then
-								return ""
-							end
-							local names = {}
-							for _, c in ipairs(clients) do
-								table.insert(names, c.name)
-							end
-							return table.concat(names, ", ")
+						"filetype",
+						icon_only = true,
+						padding = { left = 1, right = 0 },
+						cond = function()
+							return #vim.lsp.get_clients({ bufnr = 0 }) > 0
 						end,
 					},
+					{ "filename", path = 0, padding = { left = 1, right = 1 } },
 				},
+				lualine_x = {},
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},

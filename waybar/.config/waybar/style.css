@@ -27,7 +27,7 @@ window#waybar,
 #tags button {
     padding: 0 10px;
     background-repeat: no-repeat;
-    background-position: 75% 3px;
+    background-position: 15% 3px;
     background-size: 5px 5px;
 }
 #tags button.occupied {
