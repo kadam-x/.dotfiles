@@ -1,0 +1,17 @@
+[user]
+	name = kadam-x
+	email = 195574960+kadam-x@users.noreply.github.com
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+	autocrlf = input
+	pager = bat --style=changes --color=always --language=diff
+[pull]
+	rebase = false
+[fetch]
+	prune = true
+[diff]
+	colorMoved = default
+[rerere]
+	enabled = true

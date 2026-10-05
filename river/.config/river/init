@@ -2,6 +2,8 @@
 
 scripts="$HOME/.local/bin/scripts"
 sink="@DEFAULT_AUDIO_SINK@"
+export GTK_USE_PORTAL=1
+export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 
 riverctl default-attach-mode bottom
 riverctl border-width 5
