@@ -22,7 +22,6 @@ riverctl map normal Super Return spawn foot
 riverctl map normal Super A spawn "rofi -show drun"
 riverctl map normal Super E spawn "foot --app-id yazi --window-size-pixels 1200x800 -e yazi"
 riverctl map normal Super U spawn "hyprpicker -a"
-riverctl map normal Super Period spawn "rofi -show emoji -emoji-mode copy"
 riverctl map normal Super+Shift S spawn "$scripts/screenshot.sh"
 riverctl map normal Super W spawn "$scripts/wallpaper-picker.sh"
 
