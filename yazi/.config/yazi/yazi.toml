@@ -28,7 +28,7 @@ play = [
   { run = 'mpv %s & ya emit quit', orphan = true, for = "unix" },
 ]
 pdf = [
-  { run = 'GDK_BACKEND=x11 zathura %s & ya emit quit', orphan = true, for = "unix" },
+  { run = 'librewolf "%s"', orphan = true, for = "unix" },
 ]
 extract = [
   { run = 'unar -o "$(dirname "$1")" -q "$1"', block = true, for = "unix" },
