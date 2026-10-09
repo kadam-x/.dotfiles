@@ -10,6 +10,40 @@ return {
             lazygit = { enabled = false },
             picker = {
                 enabled = true,
+                dirs = {
+                    vim.fn.expand("~/work"),
+                    vim.fn.expand("~/school"),
+                    vim.fn.expand("~/projects"),
+                },
+                exclude = {
+                    ".git",
+                    "node_modules",
+                    "target",
+                    "build",
+                    "dist",
+                    ".venv",
+                    "venv",
+                    "*.pyc",
+                    "*.log",
+                    -- Binary & Media
+                    "*.png",
+                    "*.jpg",
+                    "*.jpeg",
+                    "*.gif",
+                    "*.webp",
+                    "*.ico",
+                    "*.pdf",
+                    "*.zip",
+                    "*.tar",
+                    "*.gz",
+                    "*.mp4",
+                    "*.mkv",
+                    "*.mp3",
+                    "*.exe",
+                    "*.dll",
+                    "*.so",
+                    "*.dylib",
+                },
                 win = {
                     list = {
                         keys = {
@@ -115,7 +149,6 @@ return {
             Snacks.picker.grep({
                 search = "TODO|NOTE",
                 live = false,
-                dirs = { vim.fn.expand("~/projects"), vim.fn.expand("~/work") },
                 focus = "list",
             })
         end, { desc = "TODO list" })
