@@ -23,29 +23,33 @@ window#waybar,
     color: @fg;
 }
 
-/* tags */
-#tags button {
+/* tags (mango/workspaces) */
+/* occupied = any tag that is not .empty, so the dot is the default and .empty removes it */
+#workspaces button {
     padding: 0 10px;
     background-repeat: no-repeat;
     background-position: 15% 3px;
     background-size: 5px 5px;
-}
-#tags button.occupied {
     background-image: linear-gradient(@fg, @fg);
 }
-#tags button.focused {
+#workspaces button.empty {
+    background-image: none;
+}
+#workspaces button.active {
     color: @bg;
     background-color: @accent;
-}
-#tags button.focused.occupied {
     background-image: linear-gradient(@bg, @bg);
 }
-#tags button.urgent {
+#workspaces button.active.empty {
+    background-image: none;
+}
+#workspaces button.urgent {
     color: @bg;
     background-color: @fg;
-}
-#tags button.urgent.occupied {
     background-image: linear-gradient(@bg, @bg);
+}
+#workspaces button.urgent.empty {
+    background-image: none;
 }
 
 /* modules */

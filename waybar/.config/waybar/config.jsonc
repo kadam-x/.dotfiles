@@ -4,13 +4,15 @@
     "reload_style_on_change": true,
     "height": 30,
 
-    "modules-left": ["river/tags"],
+    "modules-left": ["mango/workspaces"],
     "modules-center": [],
     "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "tray", "clock"],
 
-    "river/tags": {
-        "num-tags": 9,
-        "tag-labels": ["1","2","3","4","5","6","7","8","9"]
+    "mango/workspaces": {
+        "format": "{name}",
+        "hide-empty": false,
+        "on-click": "activate",
+        "on-click-right": "toggle"
     },
 
     "network": {
