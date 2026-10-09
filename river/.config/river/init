@@ -6,8 +6,8 @@ export GTK_USE_PORTAL=1
 export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 
 riverctl default-attach-mode bottom
-riverctl border-width 5
-riverctl border-color-focused 0x84aafcff
+riverctl border-width 3
+riverctl border-color-focused 0x7e98e8ff
 riverctl border-color-unfocused 0x1c1c24ff
 
 riverctl csd-preference server
