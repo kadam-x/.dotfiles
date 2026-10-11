@@ -93,7 +93,15 @@ return {
                             key = "c",
                             desc = "Config Files",
                             action = function()
-                                Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+                                Snacks.picker.files({ dirs = { vim.fn.stdpath("config") } })
+                            end,
+                        },
+                        {
+                            icon = " ",
+                            key = "s",
+                            desc = "Search Config",
+                            action = function()
+                                Snacks.picker.grep({ dirs = { vim.fn.stdpath("config") } })
                             end,
                         },
                         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -143,8 +151,11 @@ return {
             Snacks.picker.diagnostics()
         end, { desc = "Diagnostics" })
         vim.keymap.set("n", "<leader>fc", function()
-            Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+            Snacks.picker.files({ dirs = { vim.fn.stdpath("config") } })
         end, { desc = "Neovim Config Files" })
+        vim.keymap.set("n", "<leader>fC", function()
+            Snacks.picker.grep({ dirs = { vim.fn.stdpath("config") } })
+        end, { desc = "Grep Neovim Config" })
         vim.keymap.set("n", "<leader>ft", function()
             Snacks.picker.grep({
                 search = "TODO|NOTE",

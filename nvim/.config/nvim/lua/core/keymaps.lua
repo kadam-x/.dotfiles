@@ -40,7 +40,6 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
-vim.keymap.set("i", "jk", "<Esc>", { noremap = true, desc = "Exit insert mode" })
 
 -- navigation
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down centered" })
