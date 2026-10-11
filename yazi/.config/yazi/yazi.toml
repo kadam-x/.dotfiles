@@ -19,7 +19,7 @@ image_quality   = 75
 
 [opener]
 edit = [
-  { run = 'nvim %s', block = false, for = "unix" },
+  { run = 'nvim %s', block = true, for = "unix" },
 ]
 image = [
   { run = 'mpv --image-display-duration=inf --no-osc %s & ya emit quit', orphan = true, for = "unix" },
@@ -37,6 +37,7 @@ extract = [
 [open]
 rules = [
   { mime = "inode/directory",              use = [ "edit", "open", "reveal" ] },
+  { mime = "inode/x-empty",                use = [ "edit", "reveal" ] },
   { mime = "text/*",                       use = [ "edit", "reveal" ] },
   { mime = "image/*",                      use = [ "image" ] },
   { mime = "{audio,video}/*",              use = [ "play", "reveal" ] },
@@ -50,7 +51,7 @@ rules = [
   { mime = "application/x-xz",             use = [ "extract", "reveal" ] },
   { mime = "application/x-7z-compressed",  use = [ "extract", "reveal" ] },
   { mime = "application/x-rar",            use = [ "extract", "reveal" ] },
-  { mime = "*/*", use = [ "open", "reveal" ] },
+  { mime = "*/*",                          use = [ "edit", "open", "reveal" ] },
 ]
 
 [input]
