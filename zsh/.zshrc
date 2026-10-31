@@ -19,7 +19,6 @@ alias ll="eza -lha --icons=auto --sort=name --group-directories-first"
 alias ls="eza -1 --icons=auto"
 alias lt="eza --icons=auto --tree"
 alias sess='~/.local/bin/scripts/sessionizer.sh'
-alias cat='bat'
 
 # Autocompletion
 autoload -Uz compinit
@@ -51,3 +50,6 @@ export PATH="$PATH:/home/kadamx/.local/bin"
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 export PATH=$PATH:$(go env GOPATH)/bin
+
+# opencode
+export PATH=/home/kadamx/.opencode/bin:$PATH
