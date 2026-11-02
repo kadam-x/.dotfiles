@@ -31,7 +31,7 @@ pdf = [
   { run = 'librewolf "%s"', orphan = true, for = "unix" },
 ]
 extract = [
-  { run = 'unar -o "$(dirname "$1")" -q "$1"', block = true, for = "unix" },
+  { run = 'unar -o "$(dirname "%s")" "%s"', block = true, for = "unix" },
 ]
 
 [open]
@@ -44,13 +44,13 @@ rules = [
   { mime = "application/{json,ndjson}",    use = [ "edit", "reveal" ] },
   { mime = "*/javascript",                 use = [ "edit", "reveal" ] },
   { mime = "application/pdf",              use = [ "pdf", "reveal" ] },
-  { mime = "application/zip",              use = [ "extract", "reveal" ] },
-  { mime = "application/x-tar",            use = [ "extract", "reveal" ] },
-  { mime = "application/x-bzip2",          use = [ "extract", "reveal" ] },
-  { mime = "application/gzip",             use = [ "extract", "reveal" ] },
-  { mime = "application/x-xz",             use = [ "extract", "reveal" ] },
-  { mime = "application/x-7z-compressed",  use = [ "extract", "reveal" ] },
-  { mime = "application/x-rar",            use = [ "extract", "reveal" ] },
+  { mime = "application/zip",              use = [ "extract" ] },
+  { mime = "application/x-tar",            use = [ "extract" ] },
+  { mime = "application/x-bzip2",          use = [ "extract" ] },
+  { mime = "application/gzip",             use = [ "extract" ] },
+  { mime = "application/x-xz",             use = [ "extract" ] },
+  { mime = "application/x-7z-compressed",  use = [ "extract" ] },
+  { mime = "application/x-rar",            use = [ "extract" ] },
   { mime = "*/*",                          use = [ "edit", "open", "reveal" ] },
 ]
 
