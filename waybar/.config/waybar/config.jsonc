@@ -16,39 +16,32 @@
     },
 
     "network": {
-        "format-wifi": "{icon}",
-        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "format-ethernet": "󰈀",
-        "format-disconnected": "󰤭",
+        "format-wifi": "w {signalStrength}%",
+        "format-ethernet": "eth",
+        "format-disconnected": "w off",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname} via {gwaddr}",
         "tooltip-format-disconnected": "Disconnected"
     },
 
     "bluetooth": {
-        "format-on": "",
-        "format-off": "",
+        "format-on": "bt",
+        "format-off": "bt off",
         "format-no-controller": "",
-        "format-connected": "󰂱",
+        "format-connected": "bt on",
         "tooltip-format-connected": "{device_alias}",
         "on-click": "blueman-manager"
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟",
-        "format-icons": {
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
+        "format": "v {volume}%",
+        "format-muted": "v mute",
         "scroll-step": 1
     },
 
     "battery": {
-        "format": "{icon}",
-        "format-icons": {
-            "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-            "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-        },
+        "format": "b {capacity}%",
+        "format-charging": "b {capacity}%+",
         "tooltip-format": "{capacity}% ({time})",
         "states": {
             "warning": 20,
