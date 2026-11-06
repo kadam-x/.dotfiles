@@ -123,9 +123,6 @@ return {
                 { win = { position = "float", width = 0.95, height = 0.65, border = "single" } }
             )
         end, { desc = "Toggle terminal" })
-        vim.keymap.set("n", "<tab>", function()
-            Snacks.picker.buffers({ focus = "list" })
-        end, { desc = "Find Buffers" })
         vim.keymap.set("n", "<leader>ff", function()
             Snacks.picker.files()
         end, { desc = "Find Files" })

@@ -6,7 +6,7 @@
 
     "modules-left": ["mango/workspaces"],
     "modules-center": [],
-    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "tray", "clock"],
+    "modules-right": ["tray", "network", "bluetooth", "pulseaudio", "battery", "clock"],
 
     "mango/workspaces": {
         "format": "{name}",

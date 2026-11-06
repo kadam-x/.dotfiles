@@ -4,6 +4,7 @@
 @define-color active  #4497a9;
 @define-color urgent  #770000;
 @define-color white   #ffffff;
+@define-color sep     #222436;
 
 * {
     font-family: JetBrainsMono Nerd Font;
@@ -56,6 +57,15 @@ window#waybar,
 #clock, #tray, #network, #bluetooth, #pulseaudio, #battery {
     padding: 0 10px;
 }
+
+/* separators: drawn as borders so they disappear together with the module */
+#tray {
+    border-right: 1px solid @sep;
+}
+#clock {
+    border-left: 1px solid @sep;
+}
+
 tooltip label {
     padding: 6px;
 }
