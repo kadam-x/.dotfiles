@@ -6,7 +6,7 @@
 
     "modules-left": ["mango/workspaces"],
     "modules-center": [],
-    "modules-right": ["tray", "network", "bluetooth", "pulseaudio", "battery", "clock"],
+    "modules-right": ["tray", "network", "bluetooth", "pulseaudio", "battery", "clock#date", "clock#time"],
 
     "mango/workspaces": {
         "format": "{name}",
@@ -49,8 +49,14 @@
         }
     },
 
-    "clock": {
-        "format": "{:%a %d %b %H:%M}",
+    "clock#time": {
+        "format": "{:%H:%M:%S}",
+        "interval": 1,
+        "tooltip": false
+    },
+
+    "clock#date": {
+        "format": "{:%a %d %b}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",

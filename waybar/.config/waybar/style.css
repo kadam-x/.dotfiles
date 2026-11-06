@@ -62,7 +62,8 @@ window#waybar,
 #tray {
     border-right: 1px solid @sep;
 }
-#clock {
+#clock.date,
+#clock.time {
     border-left: 1px solid @sep;
 }
 
