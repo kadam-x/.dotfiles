@@ -4,6 +4,7 @@
 #   ./install.sh cli        CLI packages only (nvim, zsh, tmux, ...)
 #   ./install.sh full       CLI + desktop packages
 #   ./install.sh uninstall  remove all symlinks (files in the repo are untouched)
+# Existing files that would block a link are moved to ~/.dotfiles-backup/<timestamp>/.
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -19,12 +20,25 @@ packages() { # list package dirs (incl. dot-named ones) in a group
   find "$DOTFILES/$1" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
 }
 
+BACKUP="$TARGET/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+
+backup_conflicts() { # move real files that block stowing into $BACKUP
+  local conflict
+  while read -r conflict; do
+    [[ -z $conflict ]] && continue
+    mkdir -p "$BACKUP/$(dirname "$conflict")"
+    mv "$TARGET/$conflict" "$BACKUP/$conflict"
+    echo "    backed up ~/$conflict -> $BACKUP/$conflict"
+  done < <(stow -n "$@" 2>&1 | sed -n 's/.*existing target \(.*\) since .*/\1/p')
+}
+
 stow_group() { # $1 = group, $2 = stow action flag
   local group=$1 action=$2 pkg flags
   echo "==> $group"
   for pkg in $(packages "$group"); do
     flags=()
     [[ " ${NO_FOLD[*]} " == *" $pkg "* ]] && flags+=(--no-folding)
+    [[ $action == -R ]] && backup_conflicts -d "$DOTFILES/$group" -t "$TARGET" "${flags[@]}" "$action" "$pkg"
     stow -d "$DOTFILES/$group" -t "$TARGET" "${flags[@]}" "$action" "$pkg"
     echo "    $pkg"
   done
