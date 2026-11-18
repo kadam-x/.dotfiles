@@ -22,14 +22,26 @@ packages() { # list package dirs (incl. dot-named ones) in a group
 
 BACKUP="$TARGET/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
-backup_conflicts() { # move real files that block stowing into $BACKUP
-  local conflict
+backup_conflicts() { # clear whatever blocks stowing: stale links are removed, the rest is moved to $BACKUP
+  local conflict path dest
   while read -r conflict; do
     [[ -z $conflict ]] && continue
+    path="$TARGET/$conflict"
+    if [[ -L $path ]]; then
+      dest=$(readlink -f "$path" || true)
+      # broken link, or a link left over from an older layout of this repo
+      if [[ ! -e $path || $dest == "$DOTFILES"/* ]]; then
+        rm "$path"
+        echo "    removed stale link ~/$conflict"
+        continue
+      fi
+    fi
     mkdir -p "$BACKUP/$(dirname "$conflict")"
-    mv "$TARGET/$conflict" "$BACKUP/$conflict"
+    mv "$path" "$BACKUP/$conflict"
     echo "    backed up ~/$conflict -> $BACKUP/$conflict"
-  done < <(stow -n "$@" 2>&1 | sed -n 's/.*existing target \(.*\) since .*/\1/p')
+  done < <(stow -n "$@" 2>&1 | sed -n \
+    -e 's/.*over existing target \(.*\) since .*/\1/p' \
+    -e 's/.*existing target is not owned by stow: \(.*\)$/\1/p')
 }
 
 stow_group() { # $1 = group, $2 = stow action flag
