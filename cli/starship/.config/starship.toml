@@ -1,5 +1,5 @@
 add_newline = false
-format = "\\[$directory$git_branch$git_status\\]$character"
+format = "$directory$git_branch$git_status$character"
 right_format = "$python$nodejs$cpp$rust$cmd_duration$username"
 
 [character]
@@ -12,7 +12,7 @@ style = "bold white"
 read_only = " 󰌾"
 truncation_length = 3
 truncate_to_repo = true
-format = "[$path]($style)" 
+format = "[$path]($style) "
 
 [python]
 symbol = ""
@@ -42,7 +42,7 @@ style = "bold"
 [git_branch]
 symbol = ""
 style = "bold #444444"
-format = "[ $branch]($style)" 
+format = "[$branch]($style)"
 
 [git_status]
 style = "bold"
